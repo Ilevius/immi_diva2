@@ -1,0 +1,591 @@
+%\usepackage[cp1251]{inputenc}
+%\usepackage{newthm}
+%\renewcommand{\baselinestretch}{1,25}
+
+\documentclass[a4paper,openany,oneside]{book}%
+\usepackage[14pt]{extsizes}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{mathtext}
+\usepackage[unicode]{hyperref}
+\usepackage{cmap}
+\usepackage[cp1251]{inputenc}
+\usepackage[english,russian]{babel}
+\usepackage{longtable}
+\usepackage{graphicx}
+\usepackage[matrix,arrow,curve]{xy}
+\usepackage{ccaption}
+\usepackage{misccorr}
+\usepackage{indentfirst}
+\usepackage{soul}%
+\setcounter{MaxMatrixCols}{30}
+%TCIDATA{OutputFilter=latex2.dll}
+%TCIDATA{Version=5.50.0.2960}
+%TCIDATA{CSTFile=LaTeX Book.cst}
+%TCIDATA{Created=Thursday, December 15, 2016 08:42:37}
+%TCIDATA{LastRevised=Wednesday, September 07, 2022 12:37:40}
+%TCIDATA{<META NAME="GraphicsSave" CONTENT="32">}
+%TCIDATA{<META NAME="SaveForMode" CONTENT="1">}
+%TCIDATA{BibliographyScheme=Manual}
+%TCIDATA{<META NAME="DocumentShell" CONTENT="Standard LaTeX\Blank - Standard LaTeX Article">}
+%BeginMSIPreambleData
+\providecommand{\U}[1]{\protect\rule{.1in}{.1in}}
+%EndMSIPreambleData
+\newtheorem{theorem}{\indent \U{422}\U{435}\U{43e}\U{440}\U{435}\U{43c}\U{430}}[section]
+\newtheorem{proposition}{\indent \U{41f}\U{440}\U{435}\U{434}\U{43b}\U{43e}\U{436}\U{435}\U{43d}\U{438}\U{435}}[section]
+\newtheorem{lemma}{\indent \U{41b}\U{435}\U{43c}\U{43c}\U{430}}[section]
+\newtheorem{Characteristic}{\indent \U{421}\U{432}\U{43e}\U{439}\U{441}\U{442}\U{432}\U{43e}}[section]
+\newtheorem{corollary}{\indent \U{421}\U{43b}\U{435}\U{434}\U{441}\U{442}\U{432}\U{438}\U{435}}[chapter]
+\newtheorem{criterion}{\indent \U{41a}\U{440}\U{438}\U{442}\U{435}\U{440}\U{438}\U{439}}[chapter]
+\newtheorem{example}{\indent \U{41f}\U{440}\U{438}\U{43c}\U{435}\U{440}}[chapter]
+\newtheorem{remark}{\indent \U{417}\U{430}\U{43c}\U{435}\U{447}\U{430}\U{43d}\U{438}\U{435}}[chapter]
+\newtheorem{algorithm}{\indent \U{410}\U{43b}\U{433}\U{43e}\U{440}\U{438}\U{442}\U{43c}}
+\newtheorem{axiom}{\indent \U{410}\U{43a}\U{441}\U{438}\U{43e}\U{43c}\U{430}}[chapter]
+\newtheorem{case}{\indent \U{421}\U{43b}\U{443}\U{447}\U{430}\U{439}}[chapter]
+\newtheorem{claim}{\indent \U{422}\U{440}\U{435}\U{431}\U{43e}\U{432}\U{430}\U{43d}\U{438}\U{435}}[chapter]
+\newtheorem{conclusion}{\indent \U{417}\U{430}\U{43a}\U{43b}\U{44e}\U{447}\U{435}\U{43d}\U{438}\U{435}}[chapter]
+\newtheorem{condition}{\indent \U{423}\U{441}\U{43b}\U{43e}\U{432}\U{438}\U{435}}[chapter]
+\newtheorem{conjecture}{\indent \U{41f}\U{440}\U{435}\U{434}\U{43f}\U{43e}\U{43b}\U{43e}\U{436}\U{435}\U{43d}\U{438}\U{435}}[chapter]
+\newtheorem{definition}{\indent \U{41e}\U{43f}\U{440}\U{435}\U{434}\U{435}\U{43b}\U{435}\U{43d}\U{438}\U{435}}[chapter]
+\newtheorem{exercise}{\indent \U{423}\U{43f}\U{440}\U{430}\U{436}\U{43d}\U{435}\U{43d}\U{438}\U{435}}[chapter]
+\newtheorem{problem}{\indent \U{417}\U{430}\U{434}\U{430}\U{447}\U{430}}[chapter]
+\newtheorem{summary}{\indent \U{412}\U{44b}\U{432}\U{43e}\U{434}}[chapter]
+\oddsidemargin 0cm \evensidemargin 0cm \textwidth 16,5cm \topmargin -2cm
+\renewcommand{\baselinestretch}{1,2}
+\textheight 27cm
+\newenvironment{proof}{\par{\U{414} \U{43e} \U{43a} \U{430} \U{437} \U{430} \U{442} \U{435} \U{43b} \U{44c} \U{441} \U{442} \U{432} \U{43e}.}}{\ $\Box$\vspace{6pt}}
+\pagestyle{myheadings}
+\numberwithin{equation}{section}
+\parindent 1,2cm
+\sloppy
+\begin{document}
+\section*{
+\U{41e}\U{442}\U{440}\U{430}\U{436}\U{435}\U{43d}\U{43d}\U{43e}\U{435}
+\U{43f}\U{43e}\U{43b}\U{435},
+\U{43f}\U{43e}\U{43f}\U{435}\U{440}\U{435}\U{447}\U{43d}\U{44b}\U{435}
+\U{432}\U{43e}\U{43b}\U{43d}\U{44b}}
+
+\subsection*{\U{424}\U{443}\U{440}\U{44c}\U{435}
+\U{441}\U{438}\U{43c}\U{432}\U{43e}\U{43b}\U{44b}}
+
+\U{418}\U{441}\U{441}\U{43b}\U{435}\U{434}\U{443}\U{44e}\U{442}\U{441}\U{44f}
+\U{443}\U{441}\U{442}\U{430}\U{43d}\U{43e}\U{432}\U{438}\U{432}\U{448}\U{438}\U{435}\U{441}\U{44f}
+\U{433}\U{430}\U{440}\U{43c}\U{43e}\U{43d}\U{438}\U{447}\U{435}\U{441}\U{43a}\U{438}\U{435}
+\U{43a}\U{43e}\U{43b}\U{435}\U{431}\U{430}\U{43d}\U{438}\U{44f}
+\U{443}\U{43f}\U{440}\U{443}\U{433}\U{43e}\U{433}\U{43e}
+\U{441}\U{43b}\U{43e}\U{44f} \U{438}\U{437}
+\U{430}\U{43b}\U{44e}\U{43c}\U{438}\U{43d}\U{438}\U{44f} ($\rho_{1}=$ 2700
+\U{43a}\U{433}/\U{43c}$^{3}$, $c_{p,1}$ = 6199 \U{43c}/\U{441}, $c_{s,1}$ =
+3122 \U{43c}/\U{441}, \U{442}\U{43e}\U{43b}\U{449}\U{438}\U{43d}\U{430} $h=5$
+\U{43c}\U{43c}) \U{43d}\U{430}
+\U{43f}\U{43e}\U{43b}\U{443}\U{43f}\U{440}\U{43e}\U{441}\U{442}\U{440}\U{430}\U{43d}\U{441}\U{442}\U{432}\U{435}
+\U{438}\U{437} \U{43c}\U{435}\U{434}\U{438} ($\rho_{2}=$ 4700
+\U{43a}\U{433}/\U{43c}$^{3}$, $c_{p,2}$ = 4098 \U{43c}/\U{441}, $c_{s,2}$ =
+2022 \U{43c}/\U{441}.) \U{441}
+\U{447}\U{430}\U{441}\U{442}\U{43e}\U{442}\U{43e}\U{439} 2
+\U{41c}\U{413}\U{446}.
+\U{41d}\U{430}\U{433}\U{440}\U{443}\U{437}\U{43a}\U{430} $\boldsymbol{Q}%
+(x)=\left(  0,1\right)  $. \U{41f}\U{443}\U{441}\U{442}\U{44c} $\boldsymbol{u}%
+_{0}=\left(  u_{0},v_{0}\right)  $ -
+\U{43f}\U{430}\U{434}\U{430}\U{44e}\U{449}\U{435}\U{435}
+\U{43f}\U{43e}\U{43b}\U{435} \U{43f}\U{435}\U{440}\U{435}\U{43c}\U{435}\U{449}\U{435}\U{43d}\U{438}\U{439}.
+
+\U{418}\U{43c}\U{435}\U{435}\U{43c}
+\U{440}\U{430}\U{432}\U{435}\U{43d}\U{441}\U{442}\U{432}\U{43e}
+\[
+\boldsymbol{u}_{0}\left(  x,z\right)  =\frac{1}{2\pi}\int\limits_{\Gamma}%
+K_{0}\left(  \alpha,z\right)  Q\left(  \alpha\right)  e^{-i\alpha x}%
+d\alpha=\frac{1}{2\pi}\int\limits_{\Gamma}\left(
+\begin{array}
+[c]{c}%
+-iP\\
+R
+\end{array}
+\right)  e^{-i\alpha x}d\alpha,
+\]
+\U{433}\U{434}\U{435} $P,R$ \U{438}\U{437}\U{432}\U{435}\U{441}\U{442}\U{43d}\U{44b}.
+
+\U{41f}\U{435}\U{440}\U{432}\U{43e}\U{435}
+\U{43e}\U{442}\U{440}\U{430}\U{436}\U{435}\U{43d}\U{43d}\U{43e}\U{435}
+\U{432}\U{43e}\U{43b}\U{43d}\U{43e}\U{432}\U{43e}\U{435}
+\U{43f}\U{43e}\U{43b}\U{435} \U{438}\U{43c}\U{435}\U{435}\U{442}
+\U{432}\U{438}\U{434}
+\[
+\boldsymbol{u}_{-}\left(  x,z\right)  =\frac{1}{2\pi}\int\limits_{\Gamma}%
+K_{-}\left(  \alpha,z\right)  Q\left(  \alpha\right)  e^{-i\alpha x}d\alpha,
+\]
+\U{433}\U{434}\U{435}
+\[
+K_{-}\left(  \alpha,z\right)  =t_{1}\left(
+\begin{array}
+[c]{c}%
+1\\
+-\sigma_{1}%
+\end{array}
+\right)  e^{-\sigma_{1}\left(  z+h\right)  }+t_{2}\left(
+\begin{array}
+[c]{c}%
+-\sigma_{2}\\
+\alpha^{2}%
+\end{array}
+\right)  e^{-\sigma_{2}\left(  z+h\right)  },
+\]
+\U{430} \U{43f}\U{435}\U{440}\U{432}\U{43e}\U{435}
+\U{43f}\U{440}\U{43e}\U{448}\U{435}\U{434}\U{448}\U{435}\U{435}
+\U{432}\U{43e}\U{43b}\U{43d}\U{43e}\U{432}\U{43e}\U{435}
+\U{43f}\U{43e}\U{43b}\U{435} \U{438}\U{43c}\U{435}\U{435}\U{442}
+\U{432}\U{438}\U{434}
+\[
+\boldsymbol{u}_{+}\left(  x,z\right)  =\frac{1}{2\pi}\int\limits_{\Gamma}%
+K_{+}\left(  \alpha,z\right)  Q\left(  \alpha\right)  e^{-i\alpha x}d\alpha,
+\]
+\U{433}\U{434}\U{435}
+\[
+K_{+}\left(  \alpha,z\right)  =t_{3}\left(
+\begin{array}
+[c]{c}%
+1\\
+\hat{\sigma}_{1}%
+\end{array}
+\right)  e^{\hat{\sigma}_{1}\left(  z+h\right)  }+t_{4}\left(
+\begin{array}
+[c]{c}%
+\hat{\sigma}_{2}\\
+\alpha^{2}%
+\end{array}
+\right)  e^{\hat{\sigma}_{2}\left(  z+h\right)  },
+\]%
+\[
+\hat{\kappa}_{1}=\frac{\omega}{c_{p,2}},\hat{\kappa}_{2}=\frac{\omega}%
+{c_{s,2}},\hat{\sigma}_{i}=\sqrt{\alpha^{2}-\hat{\kappa}_{i}^{2}},i=1,2.
+\]
+\U{41f}\U{440}\U{438} \U{44d}\U{442}\U{43e}\U{43c}
+\U{43a}\U{43e}\U{44d}\U{444}\U{444}\U{438}\U{446}\U{438}\U{435}\U{43d}\U{442}\U{44b}
+$t_{i},i=1,..,4$
+\U{43d}\U{435}\U{438}\U{437}\U{432}\U{435}\U{441}\U{442}\U{43d}\U{44b}.
+\U{421}\U{43b}\U{435}\U{434}\U{443}\U{44e}\U{449}\U{438}\U{435}
+\U{440}\U{430}\U{432}\U{435}\U{43d}\U{441}\U{442}\U{432}\U{430}
+\U{43f}\U{440}\U{438} $z=-h$
+\[
+\left[  \mathbf{U}\right]  =0,\left[  \mathbf{T}\right]  =0
+\]
+\U{433}\U{434}\U{435}
+\[
+\mathbf{U}=\left\{
+\begin{array}
+[c]{c}%
+\mathbf{U}_{0}+\mathbf{U}_{-},-h\leq z\leq0\\
+\mathbf{U}_{+},z\leq-h
+\end{array}
+\right.
+\]%
+\[
+\mathbf{T}=\left(  T_{xz},T_{zz}\right)
+\]
+\U{43f}\U{43e}\U{437}\U{432}\U{43e}\U{43b}\U{44f}\U{44e}\U{442}
+\U{441}\U{43e}\U{441}\U{442}\U{430}\U{432}\U{438}\U{442}\U{44c}
+\U{441}\U{438}\U{441}\U{442}\U{435}\U{43c}\U{443}
+\U{43b}\U{438}\U{43d}\U{435}\U{439}\U{43d}\U{44b}\U{445}
+\U{443}\U{440}\U{430}\U{432}\U{43d}\U{435}\U{43d}\U{438}\U{439}
+(\U{43f}\U{440}\U{438}
+\U{444}\U{438}\U{43a}\U{441}\U{438}\U{440}\U{43e}\U{432}\U{430}\U{43d}\U{43d}\U{43e}\U{43c}
+$\alpha$) \U{438} \U{440}\U{435}\U{448}\U{438}\U{442}\U{44c} \U{435}\U{435}
+\U{43f}\U{440}\U{438} \U{43f}\U{43e}\U{43c}\U{43e}\U{449}\U{438} STAR5.
+
+\U{41f}\U{43e}\U{43b}\U{443}\U{447}\U{435}\U{43d}\U{44b}
+\U{441}\U{43b}\U{435}\U{434}\U{443}\U{44e}\U{449}\U{438}\U{435}
+\U{440}\U{435}\U{437}\U{443}\U{43b}\U{44c}\U{442}\U{430}\U{442}\U{44b}
+\U{43f}\U{440}\U{43e}\U{432}\U{435}\U{440}\U{43a}\U{438}
+\U{433}\U{440}\U{430}\U{43d}\U{438}\U{447}\U{43d}\U{44b}\U{445} \U{443}\U{441}\U{43b}\U{43e}\U{432}\U{438}\U{439}
+
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.33]{U01cond.eps}
+\includegraphics[scale=0.33]{U02cond.eps}\caption{
+\U{413}\U{440}\U{430}\U{43d}\U{438}\U{447}\U{43d}\U{44b}\U{435}
+\U{443}\U{441}\U{43b}\U{43e}\U{432}\U{438}\U{44f} \U{434}\U{43b}\U{44f}
+\U{43f}\U{430}\U{434}\U{430}\U{44e}\U{449}\U{435}\U{433}\U{43e}
+\U{43f}\U{43e}\U{43b}\U{44f} }%
+\end{figure}
+
+\newpage\begin{figure}[h]
+\centering
+\includegraphics[scale=0.33]{Usc.eps}
+\includegraphics[scale=0.33]{Vsc.eps}\caption{\U{420}\U{430}\U{432}\U{435}\U{43d}\U{441}\U{442}\U{432}\U{43e}
+$\left[  \mathbf{U}\right]  =0$}%
+\end{figure}
+
+\newpage\begin{figure}[h]
+\centering
+\includegraphics[scale=0.33]{T1.eps}
+\includegraphics[scale=0.33]{T2.eps}\caption{\U{420}\U{430}\U{432}\U{435}\U{43d}\U{441}\U{442}\U{432}\U{43e}
+$\left[  \mathbf{T}\right]  =0$}%
+\end{figure}
+
+\newpage
+
+\subsection*{\U{418}\U{43d}\U{442}\U{435}\U{433}\U{440}\U{430}\U{43b} \U{438}
+\U{430}\U{441}\U{438}\U{43c}\U{43f}\U{442}\U{43e}\U{442}\U{438}\U{43a}\U{430}}
+
+\U{41d}\U{430}\U{439}\U{442}\U{438} $t_{i},i=1,..,4$
+\U{43c}\U{43e}\U{436}\U{43d}\U{43e} \U{43f}\U{440}\U{438}
+\U{43f}\U{43e}\U{43c}\U{43e}\U{449}\U{438}
+\U{43f}\U{440}\U{430}\U{432}\U{438}\U{43b}\U{430}
+\U{41a}\U{440}\U{430}\U{43c}\U{435}\U{440}\U{430}
+\U{440}\U{430}\U{437}\U{43b}\U{43e}\U{436}\U{438}\U{432} \U{432}
+\U{43c}\U{430}\U{442}\U{440}\U{438}\U{447}\U{43d}\U{43e}\U{43c}
+\U{443}\U{440}\U{430}\U{432}\U{43d}\U{435}\U{43d}\U{438}\U{438} $At=B$
+\U{43c}\U{430}\U{442}\U{440}\U{438}\U{446}\U{443} $B$
+\U{441}\U{43b}\U{435}\U{434}\U{443}\U{44e}\U{449}\U{438}\U{43c}
+\U{43e}\U{431}\U{440}\U{430}\U{437}\U{43e}\U{43c}
+\[
+B=B_{1}\frac{1}{\Delta}e^{-\sigma_{1}h}+B_{2}\frac{1}{\Delta}e^{-\sigma_{2}h}%
+\]
+\U{442}\U{43e}\U{433}\U{434}\U{430}
+\[
+t_{i}=\frac{\Delta_{i}}{\det A}=\frac{\Delta_{i,1}}{\Delta\det A}%
+e^{-\sigma_{1}h}+\frac{\Delta_{i,2}}{\Delta\det A}e^{-\sigma_{2}h}=
+\]%
+\[
+=\frac{1}{\Delta\det A}\left(  \Delta_{i,1}e^{-\sigma_{1}h}+\Delta
+_{i,2}e^{-\sigma_{2}h}\right)  ,i=1,..,4
+\]
+\U{433}\U{434}\U{435} $\Delta_{i,j}$ --
+\U{43e}\U{43f}\U{440}\U{435}\U{434}\U{435}\U{43b}\U{438}\U{442}\U{435}\U{43b}\U{44c},
+\U{43f}\U{43e}\U{43b}\U{443}\U{447}\U{435}\U{43d}\U{43d}\U{44b}\U{439}
+\U{437}\U{430}\U{43c}\U{435}\U{43d}\U{43e}\U{439} \U{432}
+\U{43c}\U{430}\U{442}\U{440}\U{438}\U{446}\U{435} $A$ $i$-\U{433}\U{43e}
+\U{441}\U{442}\U{43e}\U{43b}\U{431}\U{446}\U{430} \U{43d}\U{430}
+\U{43c}\U{430}\U{442}\U{440}\U{438}\U{446}\U{443}-\U{441}\U{442}\U{43e}\U{43b}\U{435}\U{446}
+$B_{j}.$ \U{414}\U{430}\U{43d}\U{43d}\U{43e}\U{435}
+\U{43f}\U{440}\U{435}\U{434}\U{441}\U{442}\U{430}\U{432}\U{43b}\U{435}\U{43d}\U{438}\U{435}
+\U{43f}\U{43e}\U{437}\U{432}\U{43e}\U{43b}\U{44f}\U{435}\U{442}
+\U{442}\U{430}\U{43a} \U{43e}\U{43f}\U{438}\U{441}\U{430}\U{442}\U{44c}
+\textbf{\U{43f}\U{43e}\U{43f}\U{435}\U{440}\U{435}\U{447}\U{43d}\U{44b}\U{435}}
+\U{432}\U{43e}\U{43b}\U{43d}\U{44b}
+\U{43e}\U{442}\U{440}\U{430}\U{436}\U{435}\U{43d}\U{43d}\U{43e}\U{433}\U{43e}
+\U{43f}\U{43e}\U{43b}\U{44f}
+\[
+u_{-}^{s}=-\frac{1}{2\pi}\int\limits_{\Gamma}t_{2}\sigma_{2}e^{-\sigma
+_{2}\left(  z+h\right)  }e^{-i\alpha x}d\alpha=
+\]%
+\[
+=-\frac{1}{2\pi}\int\limits_{\Gamma}\frac{1}{\Delta\det A}\left(  \Delta
+_{2,1}e^{-\sigma_{1}h}+\Delta_{2,2}e^{-\sigma_{2}h}\right)  \sigma
+_{2}e^{-\sigma_{2}(z+h)}e^{-i\alpha x}d\alpha.
+\]
+\U{41f}\U{443}\U{441}\U{442}\U{44c} $D=\left\{  \alpha|\left\vert
+\alpha\right\vert \leq\varkappa_{1}\right\}  ,$
+\U{440}\U{430}\U{441}\U{441}\U{43c}\U{43e}\U{442}\U{440}\U{438}\U{43c}
+\U{438}\U{43d}\U{442}\U{435}\U{433}\U{440}\U{430}\U{43b}
+\[
+\tilde{u}_{-}^{s}=-\frac{1}{2\pi}\int\limits_{D}\frac{1}{\Delta\det A}\left(
+\Delta_{2,1}e^{-\sigma_{1}h}+\Delta_{2,2}e^{-\sigma_{2}h}\right)  \sigma
+_{2}e^{-\sigma_{2}(z+h)}e^{-i\alpha x}d\alpha=
+\]%
+\[
+=-\frac{1}{2\pi}\int\limits_{D}\frac{1}{\Delta\det A}\Delta_{2,2}%
+e^{-\sigma_{2}(z+2h)-i\alpha x}\sigma_{2}d\alpha-\frac{1}{2\pi}\int%
+\limits_{D}\frac{1}{\Delta\det A}\Delta_{2,1}e^{-\sigma_{2}(z+h)-\sigma
+_{1}h-i\alpha x}\sigma_{2}d\alpha
+\]
+\U{412}\U{44b}\U{431}\U{435}\U{440}\U{435}\U{43c} \U{432}
+\U{43a}\U{430}\U{447}\U{435}\U{441}\U{442}\U{432}\U{435}
+\U{43d}\U{430}\U{431}\U{43e}\U{440}\U{430} \U{442}\U{43e}\U{447}\U{435}\U{43a}
+$x,z$ \U{43b}\U{443}\U{447} \U{438}\U{434}\U{443}\U{449}\U{438}\U{439}
+\U{438}\U{437} \U{442}\U{43e}\U{447}\U{43a}\U{438} $O(0,-h)$
+\U{43f}\U{43e}\U{434} \U{443}\U{433}\U{43b}\U{43e}\U{43c} $\psi\in\lbrack
+0,\pi]$ \U{43a} \U{43f}\U{440}\U{44f}\U{43c}\U{43e}\U{439} $z=-h$
+
+\U{422}\U{430}\U{43a}\U{438}\U{43c}
+\U{43e}\U{431}\U{440}\U{430}\U{437}\U{43e}\U{43c}
+\[
+\left\{
+\begin{array}
+[c]{c}%
+x=R\cos\psi\\
+z+h=R\sin\psi
+\end{array}
+\right.
+\]
+
+
+\U{418}\U{43d}\U{442}\U{435}\U{433}\U{440}\U{430}\U{43b} $u_{-}^{s}$
+\U{43d}\U{430}\U{439}\U{434}\U{435}\U{43c} \U{43f}\U{440}\U{438}
+\U{43f}\U{43e}\U{43c}\U{43e}\U{449}\U{438} DINN5, \U{430}
+\U{434}\U{43b}\U{44f}
+\U{438}\U{43d}\U{442}\U{435}\U{433}\U{440}\U{430}\U{43b}\U{430} $\tilde{u}%
+_{-}^{s}$ \U{43f}\U{43e}\U{441}\U{442}\U{440}\U{43e}\U{438}\U{43c}
+\U{430}\U{441}\U{438}\U{43c}\U{43f}\U{442}\U{43e}\U{442}\U{438}\U{43a}\U{443}
+\U{43c}\U{435}\U{442}\U{43e}\U{434}\U{43e}\U{43c}
+\U{441}\U{442}\U{430}\U{446}. \U{444}\U{430}\U{437}\U{44b}.
+(\U{43f}\U{435}\U{440}\U{435}\U{43f}\U{440}\U{43e}\U{432}\U{435}\U{440}\U{435}\U{43d}\U{43e}
+06.09.2022)
+
+\U{418}\U{437}\U{432}\U{435}\U{441}\U{442}\U{43d}\U{43e},
+\U{447}\U{442}\U{43e} \U{435}\U{441}\U{43b}\U{438} $f:\mathbb{R}%
+\rightarrow\mathbb{C},S:\mathbb{R}\rightarrow\mathbb{R},S\in C^{\infty}\left(
+\mathbb{R}\right)  ,f\in C_{0}^{\infty}\left(  \mathbb{R}\right)  $
+\[
+\int\limits_{a}^{b}f(x)e^{i\lambda S\left(  x\right)  }dx=\sum_{i=1}%
+^{k}F\left(  \lambda,x_{i}\right)  +O\left(  \lambda^{-\infty}\right)
+,\lambda\rightarrow+\infty,
+\]
+\U{433}\U{434}\U{435} $F\left(  \lambda,x_{i}\right)  $ --
+\U{432}\U{43a}\U{43b}\U{430}\U{434} \U{43e}\U{442} $x_{i}$ --
+\U{43a}\U{440}\U{438}\U{442}\U{438}\U{447}\U{435}\U{441}\U{43a}\U{43e}\U{439}
+\U{442}\U{43e}\U{447}\U{43a}\U{438}
+\U{444}\U{443}\U{43d}\U{43a}\U{446}\U{438}\U{438} $S\left(  x\right)  .$
+\U{41f}\U{440}\U{438} \U{44d}\U{442}\U{43e}\U{43c} $F\left(  \lambda
+,x_{i}\right)  $
+\U{440}\U{430}\U{437}\U{43b}\U{430}\U{433}\U{430}\U{435}\U{442}\U{441}\U{44f}
+\U{432}
+\U{430}\U{441}\U{438}\U{43c}\U{43f}\U{442}\U{43e}\U{442}\U{438}\U{447}\U{435}\U{441}\U{43a}\U{438}\U{439}
+\U{440}\U{44f}\U{434}, \U{433}\U{43b}\U{430}\U{432}\U{43d}\U{44b}\U{439}
+\U{447}\U{43b}\U{435}\U{43d}
+\U{43a}\U{43e}\U{442}\U{43e}\U{440}\U{43e}\U{433}\U{43e}
+\U{438}\U{43c}\U{435}\U{435}\U{442} \U{432}\U{438}\U{434}
+\[
+F\left(  x_{0},\lambda\right)  =\sqrt{\frac{2\pi}{\lambda\left\vert
+S^{^{\prime\prime}}\left(  x_{0}\right)  \right\vert }}\left(  f(x_{0}%
+)+O\left(  \lambda^{-1}\right)  \right)  \exp\left(  i\lambda S\left(
+x_{0}\right)  +\frac{i\pi}{4}sgnS^{^{\prime\prime}}\left(  x_{0}\right)
+\right)  .
+\]
+\U{414}\U{43b}\U{44f}
+\textbf{\U{43f}\U{435}\U{440}\U{432}\U{43e}\U{433}\U{43e}}
+\U{441}\U{43b}\U{430}\U{433}\U{430}\U{435}\U{43c}\U{43e}\U{433}\U{43e}
+$\tilde{u}_{-}^{s}$ \U{432}\U{432}\U{435}\U{434}\U{435}\U{43c}
+\U{437}\U{430}\U{43c}\U{435}\U{43d}\U{443}
+\U{43f}\U{435}\U{440}\U{435}\U{43c}\U{435}\U{43d}\U{43d}\U{43e}\U{439}
+\[
+\left\{
+\begin{array}
+[c]{l}%
+x=\tilde{R}\cos\tilde{\psi}\\
+z+2h=\tilde{R}\sin\tilde{\psi},\tilde{R}\in\lbrack0;+\infty)
+\end{array}
+\right.
+\]
+\U{43e}\U{447}\U{435}\U{432}\U{438}\U{434}\U{43d}\U{43e}%
+\[
+\left\{
+\begin{array}
+[c]{c}%
+\cos\tilde{\psi}=\frac{R\cos\psi}{\tilde{R}}\\
+\sin\tilde{\psi}=\frac{R\sin\psi+h}{\tilde{R}}%
+\end{array}
+\right.
+\]
+\U{41f}\U{43e}\U{441}\U{43a}\U{43e}\U{43b}\U{44c}\U{43a}\U{443} $\psi
+\in\lbrack0;\pi],$ $\sin\psi\in\lbrack0;1],\cos\psi\in\lbrack-1;1]$
+\U{433}\U{440}\U{443}\U{431}\U{43e}
+\[
+\cos\tilde{\psi}\in\lbrack-1;1],\sin\tilde{\psi}\in\lbrack0;1]\Rightarrow
+\tilde{\psi}\in\lbrack0;\pi]
+\]
+\U{422}\U{430}\U{43a}\U{438}\U{43c}
+\U{43e}\U{431}\U{440}\U{430}\U{437}\U{43e}\U{43c}
+\[
+-\frac{1}{2\pi}\int\limits_{D}\frac{1}{\Delta\det A}\Delta_{2,2}\sigma
+_{2}e^{-\sigma_{2}(z+2h)-i\alpha x}d\alpha=-\frac{1}{2\pi}\int\limits_{D}%
+f\left(  \alpha\right)  e^{i\widetilde{R}\theta\left(  \alpha\right)  }d\alpha
+\]
+\U{433}\U{434}\U{435} $\theta\left(  \alpha\right)  =\left(  \sqrt
+{\varkappa_{2}^{2}-\alpha^{2}}\sin\tilde{\psi}-\alpha\cos\tilde{\psi}\right)
+$ $.$ \U{412} \U{44d}\U{442}\U{43e}\U{43c}
+\U{441}\U{43b}\U{443}\U{447}\U{430}\U{435} $\lambda=\tilde{R},$ $\alpha
+=x,S=\theta.$ \U{418}\U{43c}\U{435}\U{435}\U{43c} \U{43e}\U{434}\U{43d}\U{443}
+\U{43d}\U{435}\U{432}\U{44b}\U{440}\U{43e}\U{436}\U{434}\U{435}\U{43d}\U{43d}\U{443}\U{44e}
+\U{441}\U{442}\U{430}\U{446}\U{438}\U{43e}\U{43d}\U{430}\U{440}\U{43d}\U{443}\U{44e}
+\U{442}\U{43e}\U{447}\U{43a}\U{443}
+\[
+\alpha_{0}=-\cos\tilde{\psi}\varkappa_{2}%
+\]
+
+
+\bigskip
+
+\bigskip\U{41f}\U{440}\U{43e}\U{432}\U{435}\U{440}\U{43a}\U{430} $\alpha
+_{0}^{2}=\varkappa_{2}^{2}\cos^{2}\tilde{\psi}\Rightarrow\sqrt{\varkappa
+_{2}^{2}-\alpha^{2}}=\varkappa_{2}\left\vert \sin\tilde{\psi}\right\vert
+=\varkappa_{2}\sin\tilde{\psi}\Rightarrow$%
+\[
+\theta\left(  \alpha_{0}\right)  =\varkappa_{2}\sin^{2}\tilde{\psi}%
++\varkappa_{2}\cos^{2}\tilde{\psi}=\varkappa_{2}%
+\]%
+\[
+\frac{\partial}{\partial\alpha}\left(  \sqrt{\varkappa_{2}^{2}-\alpha^{2}}%
+\sin\tilde{\psi}-\alpha\cos\tilde{\psi}\right)  =-\frac{\alpha\sin\tilde{\psi
+}}{\sqrt{\varkappa_{2}^{2}-\alpha^{2}}}-\cos\tilde{\psi}%
+\]%
+\[
+\theta^{^{\prime}}\left(  \alpha_{0}\right)  =\frac{\varkappa_{2}\cos
+\tilde{\psi}\sin\tilde{\psi}}{\varkappa_{2}\sin\tilde{\psi}}-\cos\tilde{\psi
+}=0
+\]%
+\[
+\frac{\partial}{\partial\alpha}\left(  \sqrt{\varkappa_{2}^{2}-\alpha^{2}}%
+\sin\tilde{\psi}-\alpha\cos\tilde{\psi}\right)  =-\frac{\alpha\sin\tilde{\psi
+}+\left(  \cos\tilde{\psi}\right)  \sqrt{\varkappa_{2}^{2}-\alpha^{2}}}%
+{\sqrt{\varkappa_{2}^{2}-\alpha^{2}}}%
+\]
+\[
+\frac{\partial}{\partial\alpha}\left(  -\frac{\alpha\sin\tilde{\psi}+\left(
+\cos\tilde{\psi}\right)  \sqrt{\varkappa_{2}^{2}-\alpha^{2}}}{\sqrt
+{\varkappa_{2}^{2}-\alpha^{2}}}\right)  =-\varkappa_{2}^{2}\frac{\sin
+\tilde{\psi}}{\left(  \varkappa_{2}^{2}-\alpha^{2}\right)  ^{\frac{3}{2}}}%
+\]%
+\[
+\theta^{^{\prime\prime}}\left(  \alpha_{0}\right)  =-\varkappa_{2}^{2}%
+\frac{\sin\tilde{\psi}}{\varkappa_{2}^{3}\sin^{3}\tilde{\psi}}=-\frac
+{1}{\varkappa_{2}\sin^{2}\tilde{\psi}}%
+\]
+
+
+\U{412} \U{43d}\U{435}\U{439}
+\U{444}\U{430}\U{437}\U{43e}\U{432}\U{430}\U{44f}
+\U{444}\U{443}\U{43d}\U{43a}\U{446}\U{438}\U{44f}
+\U{43f}\U{440}\U{438}\U{43d}\U{438}\U{43c}\U{430}\U{435}\U{442}
+\U{437}\U{43d}\U{430}\U{447}\U{435}\U{43d}\U{438}\U{435}
+\[
+\theta\left(  \alpha_{0}\right)  =\varkappa_{2},
+\]
+\U{430} \U{435}\U{435} \U{432}\U{442}\U{43e}\U{440}\U{430}\U{44f}
+\U{43f}\U{440}\U{43e}\U{438}\U{437}\U{432}\U{43e}\U{434}\U{43d}\U{430}\U{44f}
+\U{440}\U{430}\U{432}\U{43d}\U{430}
+\[
+\theta^{^{\prime\prime}}\left(  \alpha_{0}\right)  =-\frac{1}{\varkappa
+_{2}\sin^{2}\tilde{\psi}}%
+\]
+
+
+\U{43e}\U{442}\U{43a}\U{443}\U{434}\U{430}
+\[
+\left\vert \theta^{^{\prime\prime}}\left(  \alpha_{0}\right)  \right\vert
+=\frac{1}{\sin^{2}\tilde{\psi}\varkappa_{2}},
+\]%
+\[
+sgn\theta^{^{\prime\prime}}\left(  \alpha_{0}\right)  =-1
+\]
+\U{412} \U{438}\U{442}\U{43e}\U{433}\U{435}
+\U{43f}\U{43e}\U{43b}\U{443}\U{447}\U{430}\U{435}\U{43c}
+\U{430}\U{441}\U{438}\U{43c}\U{43f}\U{442}\U{43e}\U{442}\U{438}\U{43a}\U{443}
+\[
+A_{1}(\tilde{\psi},\tilde{R})=-\sqrt{\frac{\varkappa_{2}\sin^{2}{}\tilde{\psi
+}}{2\pi\widetilde{R}}}f\left(  \alpha_{0}\right)  \exp\left(  iR\varkappa
+_{2}-\frac{i\pi}{4}\right)  .
+\]
+
+
+( \U{43f}\U{440}\U{43e}\U{432}\U{435}\U{440}\U{435}\U{43d}\U{43e} 07.09.22)
+
+\bigskip%
+\[
+\sigma_{i}=\sqrt{\alpha^{2}-\kappa_{i}^{2}}%
+\]
+
+
+\bigskip
+
+\U{414}\U{43b}\U{44f}
+\textbf{\U{432}\U{442}\U{43e}\U{440}\U{43e}\U{433}\U{43e}}
+\U{441}\U{43b}\U{430}\U{433}\U{430}\U{435}\U{43c}\U{43e}\U{433}\U{43e}
+$\tilde{u}_{-}^{P}$ \U{437}\U{430}\U{43c}\U{435}\U{43d}\U{430}
+\U{43f}\U{435}\U{440}\U{435}\U{43c}\U{435}\U{43d}\U{43d}\U{43e}\U{439}
+\[
+\left\{
+\begin{array}
+[c]{l}%
+x=R\cos\psi\\
+z+h=R\sin\psi,\psi\in(0;\pi),R\in\lbrack0;+\infty)
+\end{array}
+\right.
+\]
+\U{432}\U{435}\U{440}\U{43d}\U{435}\U{442} \U{43d}\U{430}\U{441} \U{43a}
+\U{438}\U{441}\U{445}\U{43e}\U{434}\U{43d}\U{44b}\U{43c} $\psi,R$
+\U{442}\U{43e}\U{433}\U{434}\U{430}
+\[
+-\frac{1}{2\pi}\int\limits_{D}\frac{1}{\Delta\det A}\Delta_{2,1}e^{-\sigma
+_{2}(z+h)-\sigma_{1}h-i\alpha x}d\alpha=\frac{1}{2\pi}\int\limits_{D}f\left(
+\alpha\right)  e^{iR\theta\left(  \alpha\right)  }d\alpha
+\]
+\U{433}\U{434}\U{435} $\theta\left(  \alpha\right)  =\left(  \sqrt
+{\varkappa_{2}^{2}-\alpha^{2}}\sin\psi+\frac{i\sigma_{1}h}{R}-\alpha\cos
+\psi\right)  $ $.$
+\U{41f}\U{43e}\U{441}\U{43a}\U{43e}\U{43b}\U{44c}\U{43a}\U{443} $\varkappa
+_{1}<\varkappa_{2},D=\left\{  \alpha|\left\vert \alpha\right\vert
+\leq\varkappa_{1}\right\}  ,\sigma_{2}=\sqrt{\alpha^{2}-\varkappa_{2}^{2}%
+}=-i\sqrt{\varkappa_{2}^{2}-\alpha^{2}}$
+\U{444}\U{430}\U{437}\U{43e}\U{432}\U{430}\U{44f}
+\U{444}\U{443}\U{43d}\U{43a}\U{446}\U{438}\U{44f}
+\U{438}\U{43c}\U{435}\U{435}\U{442} \U{432}\U{438}\U{434}
+\[
+\theta\left(  \alpha\right)  =\left(  \sqrt{\varkappa_{2}^{2}-\alpha^{2}}%
+\sin\psi+\frac{\sqrt{\varkappa_{1}^{2}-\alpha^{2}}h}{R}-\alpha\cos\psi\right)
+.
+\]
+\U{418}\U{441}\U{43a}\U{430}\U{442}\U{44c} \U{43d}\U{443}\U{43b}\U{438}
+\U{43f}\U{440}\U{43e}\U{438}\U{437}\U{432}\U{43e}\U{434}\U{43d}\U{43e}\U{439}
+\[
+\theta^{^{\prime}}\left(  \alpha\right)  =\frac{-\alpha\sin\psi}%
+{\sqrt{\varkappa_{2}^{2}-\alpha^{2}}}-\frac{\alpha h}{R\sqrt{\varkappa_{1}%
+^{2}-\alpha^{2}}}-\cos\psi
+\]
+\U{438}\U{43b}\U{438}, \U{447}\U{442}\U{43e} \U{442}\U{43e} \U{436}\U{435}
+\U{441}\U{430}\U{43c}\U{43e}\U{435}, \U{43d}\U{443}\U{43b}\U{438}
+\U{444}\U{443}\U{43d}\U{43a}\U{446}\U{438}\U{438}
+\[
+-\alpha\sin\psi R\sqrt{\varkappa_{1}^{2}-\alpha^{2}}-\alpha h\sqrt
+{\varkappa_{2}^{2}-\alpha^{2}}-\cos\psi R\sqrt{\varkappa_{2}^{2}-\alpha^{2}%
+}\sqrt{\varkappa_{1}^{2}-\alpha^{2}}%
+\]
+$\allowbreak$ \U{43f}\U{440}\U{438}\U{434}\U{435}\U{442}\U{441}\U{44f}
+\U{447}\U{438}\U{441}\U{43b}\U{435}\U{43d}\U{43d}\U{43e}.$\ $
+
+\U{41d}\U{430}\U{439}\U{434}\U{435}\U{43c}
+\U{432}\U{442}\U{43e}\U{440}\U{443}\U{44e}
+\U{43f}\U{440}\U{43e}\U{438}\U{437}\U{432}\U{43e}\U{434}\U{43d}\U{443}\U{44e}
+\[
+\theta^{^{\prime\prime}}\left(  \alpha\right)  =-\sin\psi\frac{\varkappa
+_{2}^{2}}{\left(  \varkappa_{2}^{2}-\alpha^{2}\right)  ^{\frac{3}{2}}}%
+-\frac{h\varkappa_{1}^{2}}{R\left(  \varkappa_{1}^{2}-\alpha^{2}\right)
+^{\frac{3}{2}}}%
+\]
+
+
+\U{412} \U{438}\U{442}\U{43e}\U{433}\U{435}
+\U{43f}\U{43e}\U{43b}\U{443}\U{447}\U{430}\U{435}\U{43c}
+\U{430}\U{441}\U{438}\U{43c}\U{43f}\U{442}\U{43e}\U{442}\U{438}\U{43a}\U{443}
+\[
+A_{2}(\psi,R)=\sqrt{\frac{1}{2\pi R\left\vert \theta^{^{\prime\prime}}\left(
+\alpha_{0}\right)  \right\vert }}f(\alpha_{0})\exp\left(  iR\theta\left(
+\alpha_{0}\right)  +\frac{i\pi}{4}sgn\theta^{^{\prime\prime}}\left(
+\alpha_{0}\right)  \right)  .
+\]
+\U{41f}\U{440}\U{43e}\U{441}\U{443}\U{43c}\U{43c}\U{438}\U{440}\U{43e}\U{432}\U{430}\U{432}
+\U{44d}\U{442}\U{438} \U{434}\U{432}\U{435}
+\U{430}\U{441}\U{438}\U{43c}\U{43f}\U{442}\U{43e}\U{442}\U{438}\U{43a}\U{438}
+\U{43f}\U{43e}\U{43b}\U{443}\U{447}\U{430}\U{435}\U{43c}
+\U{430}\U{441}\U{438}\U{43c}\U{43f}\U{442}\U{43e}\U{442}\U{438}\U{43a}\U{443}
+$A(\psi,R)$ \U{434}\U{43b}\U{44f}
+\U{438}\U{43d}\U{442}\U{435}\U{433}\U{440}\U{430}\U{43b}\U{430} $\tilde{u}%
+_{-}^{P}$
+\[
+A(\psi,R)=A_{1}(\psi,R)+A_{2}(\psi,R)
+\]
+
+
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.33]{uMinusPabs.eps}
+\includegraphics[scale=0.33]{uMinusPRe.eps} \includegraphics[scale=0.33]{uMinusPIm.eps}\end{figure}
+
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.33]{uMinusPabspsi.eps}
+\includegraphics[scale=0.33]{uMinusPRepsi.eps} \includegraphics[scale=0.33]{uMinusPImpsi.eps}\end{figure}
+
+
+\end{document}

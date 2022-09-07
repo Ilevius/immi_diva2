@@ -36,6 +36,9 @@ SUBROUTINE uMinusS
     open(6, file='C:\Users\tiama\OneDrive\Рабочий стол\IMMI\DIVA2\data\integral_abs.txt', FORM='FORMATTED')
     open(7, file='C:\Users\tiama\OneDrive\Рабочий стол\IMMI\DIVA2\data\asymptotics_abs.txt', FORM='FORMATTED') 
     
+    open(200, file='C:\Users\tiama\OneDrive\Рабочий стол\IMMI\DIVA2\data\alfa0psi.txt', FORM='FORMATTED')
+    open(201, file='C:\Users\tiama\OneDrive\Рабочий стол\IMMI\DIVA2\data\kappa2psi.txt', FORM='FORMATTED')
+    
     t1 = Kappa(1)*0.1; t2 = t1; t3 = t1; t4 = (Kappa(2)*1.4d0+1d0);   
         
     do j = 1, psiNumber
@@ -55,8 +58,12 @@ SUBROUTINE uMinusS
         call dinn5(UminusSInt1,t1,t2,t3,t4,tm,tp,eps,step,IntLimit,dotsNumber,field_int)
         field_int = -field_int/(2d0*pi);
         
+
+        
         call uMinusSSp1
         !call uMinusPSp2
+        
+        
         
         field_sp = field_sp1 !+ field_sp2
          
@@ -73,7 +80,7 @@ SUBROUTINE uMinusS
         enddo
     enddo         
         
-    close(1001); close(1002); close(1); close(2); close(3); close(4); close(5); close(6); close(7);
+    close(1001); close(1002); close(1); close(2); close(3); close(4); close(5); close(6); close(7); close(200); close(201);
     
         
     CONTAINS
@@ -94,11 +101,13 @@ SUBROUTINE uMinusS
         implicit none;
         integer n
         complex*16 alfa, s(n), sigma(2)
+        
             do i = 1, dotsNumber
                 sigma = MakeSigma(alfa)
                 s(i) = 1d0/(delta(alfa)*CramDelta(0, 0, alfa))*CramDelta(2, 2, alfa)*exp(-sigma(2)*(z(i)+2d0*h) - ci*alfa*x(i))*sigma(2)
                 s(i) = s(i) + 1d0/(delta(-alfa)*CramDelta(0, 0, -alfa))*CramDelta(2, 2, -alfa)*exp(-sigma(2)*(z(i)+2d0*h) + ci*alfa*x(i))*sigma(2)
             enddo 
+
         END SUBROUTINE UminusSInt1! проверил 7.09.2022, совпадает с выкладками
         
         
@@ -117,12 +126,19 @@ SUBROUTINE uMinusS
         SUBROUTINE uMinusSSp1
         IMPLICIT NONE;
         integer jj
-        complex*16 alfa0, sigma(2)         
+        complex*16 alfa0, sigma(2)   
+        open(100, file='C:\Users\tiama\OneDrive\Рабочий стол\IMMI\DIVA2\data\alfa0.txt', FORM='FORMATTED')
+        open(101, file='C:\Users\tiama\OneDrive\Рабочий стол\IMMI\DIVA2\data\kappa2.txt', FORM='FORMATTED')
             do jj = 1, dotsNumber
                 alfa0 = cmplx(-Kappa(2)*cos(psi2h(jj)))
+                write(100,*) R(jj), real(alfa0),  Kappa(1)
+                write(101,*) psi,  Kappa(2)
+                write(200,*) R(jj), real(alfa0),  Kappa(1)
+                write(201,*) psi,  Kappa(2)
                 sigma = MakeSigma(alfa0)
                 field_sp1(jj) = -sqrt(Kappa(2)*sin(psi2h(jj))**2/(2d0*pi*R2h(jj)))*1d0/(delta(alfa0)*CramDelta(0, 0, alfa0))*CramDelta(2, 2, alfa0)*sigma(2)*exp((ci*R2h(jj)*Kappa(2)-ci*pi/4d0))
-            enddo       
+            enddo  
+        close(100);  close(101);   
         END SUBROUTINE uMinusSSp1! проверил 7.09.2022, совпадает с выкладками
         
                 

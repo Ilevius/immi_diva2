@@ -8,12 +8,12 @@ rho(2) = 4.7d0,
 theta = 90d0,
 a = 2d0,
 f = 2000d0,
-h = 50d0
+h = 5d0
 /
 &rayInput
-psi = 40d0,
-psiNumber = 250,
-psiStep = 0.4d0,
+psi = 2d0,
+psiNumber = 175,
+psiStep = 1d0,
 Rmin = 70d0,
 Rstep = 0.2d0,
 Rmax = 70d0,

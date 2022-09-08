@@ -24,7 +24,7 @@
 %TCIDATA{Version=5.50.0.2960}
 %TCIDATA{CSTFile=LaTeX Book.cst}
 %TCIDATA{Created=Thursday, December 15, 2016 08:42:37}
-%TCIDATA{LastRevised=Wednesday, September 07, 2022 12:37:40}
+%TCIDATA{LastRevised=Thursday, September 08, 2022 12:47:22}
 %TCIDATA{<META NAME="GraphicsSave" CONTENT="32">}
 %TCIDATA{<META NAME="SaveForMode" CONTENT="1">}
 %TCIDATA{BibliographyScheme=Manual}
@@ -385,6 +385,8 @@ z+2h=\tilde{R}\sin\tilde{\psi},\tilde{R}\in\lbrack0;+\infty)
 \cos\tilde{\psi}\in\lbrack-1;1],\sin\tilde{\psi}\in\lbrack0;1]\Rightarrow
 \tilde{\psi}\in\lbrack0;\pi]
 \]
+
+
 \U{422}\U{430}\U{43a}\U{438}\U{43c}
 \U{43e}\U{431}\U{440}\U{430}\U{437}\U{43e}\U{43c}
 \[
@@ -481,12 +483,6 @@ _{2}-\frac{i\pi}{4}\right)  .
 
 ( \U{43f}\U{440}\U{43e}\U{432}\U{435}\U{440}\U{435}\U{43d}\U{43e} 07.09.22)
 
-\bigskip%
-\[
-\sigma_{i}=\sqrt{\alpha^{2}-\kappa_{i}^{2}}%
-\]
-
-
 \bigskip
 
 \U{414}\U{43b}\U{44f}
@@ -508,12 +504,13 @@ z+h=R\sin\psi,\psi\in(0;\pi),R\in\lbrack0;+\infty)
 \U{442}\U{43e}\U{433}\U{434}\U{430}
 \[
 -\frac{1}{2\pi}\int\limits_{D}\frac{1}{\Delta\det A}\Delta_{2,1}e^{-\sigma
-_{2}(z+h)-\sigma_{1}h-i\alpha x}d\alpha=\frac{1}{2\pi}\int\limits_{D}f\left(
-\alpha\right)  e^{iR\theta\left(  \alpha\right)  }d\alpha
+_{2}(z+h)-\sigma_{1}h-i\alpha x}\sigma_{2}d\alpha=\frac{1}{2\pi}%
+\int\limits_{D}f\left(  \alpha\right)  e^{iR\theta\left(  \alpha\right)
+}d\alpha
 \]
 \U{433}\U{434}\U{435} $\theta\left(  \alpha\right)  =\left(  \sqrt
 {\varkappa_{2}^{2}-\alpha^{2}}\sin\psi+\frac{i\sigma_{1}h}{R}-\alpha\cos
-\psi\right)  $ $.$
+\psi\right)  ,f(\alpha)=\frac{1}{\Delta\det A}\Delta_{2,1}\sigma_{2}$ $.$
 \U{41f}\U{43e}\U{441}\U{43a}\U{43e}\U{43b}\U{44c}\U{43a}\U{443} $\varkappa
 _{1}<\varkappa_{2},D=\left\{  \alpha|\left\vert \alpha\right\vert
 \leq\varkappa_{1}\right\}  ,\sigma_{2}=\sqrt{\alpha^{2}-\varkappa_{2}^{2}%
@@ -526,19 +523,21 @@ _{1}<\varkappa_{2},D=\left\{  \alpha|\left\vert \alpha\right\vert
 \sin\psi+\frac{\sqrt{\varkappa_{1}^{2}-\alpha^{2}}h}{R}-\alpha\cos\psi\right)
 .
 \]
-\U{418}\U{441}\U{43a}\U{430}\U{442}\U{44c} \U{43d}\U{443}\U{43b}\U{438}
+$\allowbreak$\U{418}\U{441}\U{43a}\U{430}\U{442}\U{44c}
+\U{43d}\U{443}\U{43b}\U{438}
 \U{43f}\U{440}\U{43e}\U{438}\U{437}\U{432}\U{43e}\U{434}\U{43d}\U{43e}\U{439}
 \[
 \theta^{^{\prime}}\left(  \alpha\right)  =\frac{-\alpha\sin\psi}%
 {\sqrt{\varkappa_{2}^{2}-\alpha^{2}}}-\frac{\alpha h}{R\sqrt{\varkappa_{1}%
 ^{2}-\alpha^{2}}}-\cos\psi
 \]
-\U{438}\U{43b}\U{438}, \U{447}\U{442}\U{43e} \U{442}\U{43e} \U{436}\U{435}
+$\allowbreak\allowbreak$ $\allowbreak$ $\allowbreak$\U{438}\U{43b}\U{438},
+\U{447}\U{442}\U{43e} \U{442}\U{43e} \U{436}\U{435}
 \U{441}\U{430}\U{43c}\U{43e}\U{435}, \U{43d}\U{443}\U{43b}\U{438}
 \U{444}\U{443}\U{43d}\U{43a}\U{446}\U{438}\U{438}
 \[
--\alpha\sin\psi R\sqrt{\varkappa_{1}^{2}-\alpha^{2}}-\alpha h\sqrt
-{\varkappa_{2}^{2}-\alpha^{2}}-\cos\psi R\sqrt{\varkappa_{2}^{2}-\alpha^{2}%
+\alpha h\sqrt{\varkappa_{2}^{2}-\alpha^{2}}+\alpha R\sin\psi\sqrt
+{\varkappa_{1}^{2}-\alpha^{2}}+R\cos\psi\sqrt{\varkappa_{2}^{2}-\alpha^{2}%
 }\sqrt{\varkappa_{1}^{2}-\alpha^{2}}%
 \]
 $\allowbreak$ \U{43f}\U{440}\U{438}\U{434}\U{435}\U{442}\U{441}\U{44f}
@@ -571,7 +570,7 @@ A_{2}(\psi,R)=\sqrt{\frac{1}{2\pi R\left\vert \theta^{^{\prime\prime}}\left(
 \U{430}\U{441}\U{438}\U{43c}\U{43f}\U{442}\U{43e}\U{442}\U{438}\U{43a}\U{443}
 $A(\psi,R)$ \U{434}\U{43b}\U{44f}
 \U{438}\U{43d}\U{442}\U{435}\U{433}\U{440}\U{430}\U{43b}\U{430} $\tilde{u}%
-_{-}^{P}$
+_{-}^{s}$
 \[
 A(\psi,R)=A_{1}(\psi,R)+A_{2}(\psi,R)
 \]

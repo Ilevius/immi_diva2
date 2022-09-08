@@ -55,17 +55,17 @@ SUBROUTINE uMinusS
         enddo 
         
         call bipolarTest
-        call dinn5(UminusSInt1,t1,t2,t3,t4,tm,tp,eps,step,IntLimit,dotsNumber,field_int)
+        call dinn5(UminusSInt2,t1,t2,t3,t4,tm,tp,eps,step,IntLimit,dotsNumber,field_int)
         field_int = -field_int/(2d0*pi);
         
 
         
-        call uMinusSSp1
-        !call uMinusPSp2
+        !call uMinusSSp1
+        call uMinusSSp2
         
         
         
-        field_sp = field_sp1 !+ field_sp2
+        field_sp = field_sp2 !+ field_sp2
          
         do i = 1, dotsNumber
             write(1,*) x(i),  z(i), psi
@@ -111,15 +111,15 @@ SUBROUTINE uMinusS
         END SUBROUTINE UminusSInt1! проверил 7.09.2022, совпадает с выкладками
         
         
-        SUBROUTINE UminusPInt2(alfa, s, n)
+        SUBROUTINE UminusSInt2(alfa, s, n)
         implicit none;
         integer n
         complex*16 alfa, s(n), sigma(2)
             do i = 1, dotsNumber
                 sigma = MakeSigma(alfa)
-                s(i) = 1d0/(delta(alfa)*CramDelta(0, 0, alfa))*CramDelta(1, 2, alfa)*exp(-sigma(2)*h)*exp(-sigma(1)*(z(i)+h) - ci*alfa*x(i)) + 1d0/(delta(-alfa)*CramDelta(0, 0, -alfa))*CramDelta(1, 2, -alfa)*exp(-sigma(2)*h)*exp(-sigma(1)*(z(i)+h) + ci*alfa*x(i))
+                s(i) = 1d0/(delta(alfa)*CramDelta(0, 0, alfa))*CramDelta(2, 1, alfa)*exp(-sigma(1)*h)*exp(-sigma(2)*(z(i)+h) - ci*alfa*x(i))*sigma(2) + 1d0/(delta(-alfa)*CramDelta(0, 0, -alfa))*CramDelta(2, 1, -alfa)*exp(-sigma(1)*h)*exp(-sigma(2)*(z(i)+h) + ci*alfa*x(i))*sigma(2)
             enddo 
-        END SUBROUTINE UminusPInt2
+        END SUBROUTINE UminusSInt2
         
         
         
@@ -127,8 +127,8 @@ SUBROUTINE uMinusS
         IMPLICIT NONE;
         integer jj
         complex*16 alfa0, sigma(2)   
-        open(100, file='C:\Users\tiama\OneDrive\Рабочий стол\IMMI\DIVA2\data\alfa0.txt', FORM='FORMATTED')
-        open(101, file='C:\Users\tiama\OneDrive\Рабочий стол\IMMI\DIVA2\data\kappa2.txt', FORM='FORMATTED')
+            open(100, file='C:\Users\tiama\OneDrive\Рабочий стол\IMMI\DIVA2\data\alfa0.txt', FORM='FORMATTED')
+            open(101, file='C:\Users\tiama\OneDrive\Рабочий стол\IMMI\DIVA2\data\kappa2.txt', FORM='FORMATTED')
             do jj = 1, dotsNumber
                 alfa0 = cmplx(-Kappa(2)*cos(psi2h(jj)))
                 write(100,*) R(jj), real(alfa0),  Kappa(1)
@@ -138,54 +138,62 @@ SUBROUTINE uMinusS
                 sigma = MakeSigma(alfa0)
                 field_sp1(jj) = -sqrt(Kappa(2)*sin(psi2h(jj))**2/(2d0*pi*R2h(jj)))*1d0/(delta(alfa0)*CramDelta(0, 0, alfa0))*CramDelta(2, 2, alfa0)*sigma(2)*exp((ci*R2h(jj)*Kappa(2)-ci*pi/4d0))
             enddo  
-        close(100);  close(101);   
+            close(100);  close(101);   
         END SUBROUTINE uMinusSSp1! проверил 7.09.2022, совпадает с выкладками
         
                 
-        SUBROUTINE uMinusPSp2
+        SUBROUTINE uMinusSSp2
         IMPLICIT NONE;
         integer jj, p, stPointsNumber 
         real*8 stPoints(10), alfa0, theta, thetaDerDerSign, thetaDerDer
-        complex*16 alfa0c
+        complex*16 alfa0c, sigma(2)
+            open(100, file='C:\Users\tiama\OneDrive\Рабочий стол\IMMI\DIVA2\data\alfa0.txt', FORM='FORMATTED')
+            open(101, file='C:\Users\tiama\OneDrive\Рабочий стол\IMMI\DIVA2\data\kappa2.txt', FORM='FORMATTED')
             do jj = 1, dotsNumber
                 currentPsi = psih(jj) 
                 currentR = Rh(jj)
-                call Halfc(uMinusPSp2ThetaDer, -100d0, 100d0, 2d-2, 1d-8, 10, stPoints, stPointsNumber)
+                call Halfc(uMinusSSp2ThetaDer, -100d0, 100d0, 2d-2, 1d-8, 10, stPoints, stPointsNumber)
                 field_sp2(jj) = 0d0
                 do p = 1, stPointsNumber
                     alfa0 =   stPoints(p)
                     alfa0c = cmplx(alfa0)
-                    theta = uMinusPSp2Theta(alfa0)
-                    thetaDerDer = uMinusPSp2ThetaDerDer(alfa0)
-                    thetaDerDerSign = abs(uMinusPSp2ThetaDerDer(alfa0))/uMinusPSp2ThetaDerDer(alfa0)
-                    field_sp2(jj) =  sqrt(1d0/(2d0*pi*currentR))*sqrt(1d0/abs(thetaDerDer))*1d0/(delta(alfa0c)*CramDelta(0, 0, alfa0c ))*CramDelta(1, 2, alfa0c )*exp( ci*currentR*theta + ci*pi/4d0*thetaDerDerSign )
+                    write(100,*) R(jj), real(alfa0),  Kappa(1)
+                    write(101,*) psi,  Kappa(2)
+                    write(200,*) R(jj), real(alfa0),  Kappa(1)
+                    write(201,*) psi,  Kappa(2)
+                    sigma = MakeSigma(alfa0c)
+                    theta = uMinusSSp2Theta(alfa0)
+                    thetaDerDer = uMinusSSp2ThetaDerDer(alfa0)
+                    thetaDerDerSign = abs(uMinusSSp2ThetaDerDer(alfa0))/uMinusSSp2ThetaDerDer(alfa0)
+                    field_sp2(jj) =  -sqrt(1d0/(2d0*pi*currentR))*sqrt(1d0/abs(thetaDerDer))*1d0/(delta(alfa0c)*CramDelta(0, 0, alfa0c ))*CramDelta(2, 1, alfa0c )*sigma(2)*exp( ci*currentR*theta + ci*pi/4d0*thetaDerDerSign )
                 enddo
-            enddo      
-        END SUBROUTINE uMinusPSp2
+            enddo 
+            close(100);  close(101);
+        END SUBROUTINE uMinusSSp2
         
         
-        FUNCTION uMinusPSp2Theta(alfa)
+        FUNCTION uMinusSSp2Theta(alfa)
             implicit none
             real*8 alfa
-            real*8  uMinusPSp2Theta   
-                uMinusPSp2Theta = sqrt( kappa(1)**2 - alfa**2 )*sin(currentPsi) + sqrt(kappa(2)**2 - alfa**2)*h/currentR - alfa*cos(currentPsi)
-        END FUNCTION uMinusPSp2Theta
+            real*8  uMinusSSp2Theta   
+                uMinusSSp2Theta = sqrt( kappa(2)**2 - alfa**2 )*sin(currentPsi) + sqrt(kappa(1)**2 - alfa**2)*h/currentR - alfa*cos(currentPsi)
+        END FUNCTION uMinusSSp2Theta
         
 
-        FUNCTION uMinusPSp2ThetaDer(alfa)
+        FUNCTION uMinusSSp2ThetaDer(alfa)
         implicit none
-        complex*16 uMinusPSp2ThetaDer
+        complex*16 uMinusSSp2ThetaDer
         real*8 alfa, temp
-            temp = -alfa*sin(currentPsi)/(sqrt( kappa(1)**2 - alfa**2 )) - alfa*h/(currentR*sqrt( kappa(2)**2 - alfa**2 )) - cos(currentPsi)
-            uMinusPSp2ThetaDer = cmplx(temp)
-        END FUNCTION uMinusPSp2ThetaDer
+            temp = -alfa*sin(currentPsi)/(sqrt( kappa(2)**2 - alfa**2 )) - alfa*h/(currentR*sqrt( kappa(1)**2 - alfa**2 )) - cos(currentPsi)
+            uMinusSSp2ThetaDer = cmplx(temp)
+        END FUNCTION uMinusSSp2ThetaDer
        
 
-        FUNCTION uMinusPSp2ThetaDerDer(alfa)
+        FUNCTION uMinusSSp2ThetaDerDer(alfa)
         implicit none
-        real*8 alfa, uMinusPSp2ThetaDerDer
-            uMinusPSp2ThetaDerDer = -sin(currentPsi)*kappa(1)**2/((sqrt( kappa(1)**2 - alfa**2 ))**3) - h*kappa(2)**2/(((sqrt( kappa(2)**2 - alfa**2 ))**3)*currentR)
-        END FUNCTION uMinusPSp2ThetaDerDer
+        real*8 alfa, uMinusSSp2ThetaDerDer
+            uMinusSSp2ThetaDerDer = -sin(currentPsi)*kappa(2)**2/((sqrt( kappa(2)**2 - alfa**2 ))**3) - h*kappa(1)**2/(((sqrt( kappa(1)**2 - alfa**2 ))**3)*currentR)
+        END FUNCTION uMinusSSp2ThetaDerDer
         
      
         

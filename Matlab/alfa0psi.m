@@ -17,7 +17,7 @@ psi = v(:, 1);
 plot(psi, kappa1, psi, kappa2, psi, alfas, 'lineWidth', 3);
 xlabel(R, 'FontSize',36);
 %ylabel('$|u|$, m', 'FontSize',36, 'Interpreter', 'Latex',);
-legend(' \kappa_1', '\kappa_2', '\alpha_0');
+legend(' \kappa_1', '\kappa_2', '|\alpha_0|');
 
 set(gca, 'FontSize',36);
 grid on;

@@ -1,4 +1,4 @@
-%close all;
+close all;
 clc;
 
 v = load('C:\Users\tiama\OneDrive\Рабочий стол\IMMI\DIVA2\data\alfa0psi.txt');

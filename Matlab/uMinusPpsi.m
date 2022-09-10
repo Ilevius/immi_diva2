@@ -26,7 +26,7 @@ graph2 = v(:, 2);
 plot(psis, graph1, psis, graph2, 'x', 'LineWidth', 3, 'MarkerSize', 10);
 xlabel('\psi, R  =  '+R+' mm', 'FontSize',36);
 %ylabel('$|u|$, m', 'FontSize',36, 'Interpreter', 'Latex');
-legend(' |u_{-}^{P}| integral', '|A(\psi,R)| asymptotics');
+legend(' |u_{-}^{S}| integral', 'asymptotics');
 
 set(gca, 'FontSize',36);
 grid on;

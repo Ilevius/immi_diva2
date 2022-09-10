@@ -11,8 +11,8 @@ f = 2000d0,
 h = 5d0
 /
 &rayInput
-psi = 2d0,
-psiNumber = 175,
+psi = 0d0,
+psiNumber =180,
 psiStep = 1d0,
 Rmin = 70d0,
 Rstep = 0.2d0,
@@ -23,7 +23,7 @@ t3 = 0d0,
 t4 = 0d0, 
 tm = 2d-2, 
 tp = 0d0, 
-eps = 1d-6, 
+eps = 1d-7, 
 step = 1d-2, 
-IntLimit = 1d3
+IntLimit = 1d5
 /

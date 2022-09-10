@@ -104,8 +104,7 @@ SUBROUTINE uMinusS
         
             do i = 1, dotsNumber
                 sigma = MakeSigma(alfa)
-                s(i) = 1d0/(delta(alfa)*CramDelta(0, 0, alfa))*CramDelta(2, 2, alfa)*exp(-sigma(2)*(z(i)+2d0*h) - ci*alfa*x(i))*sigma(2)
-                s(i) = s(i) + 1d0/(delta(-alfa)*CramDelta(0, 0, -alfa))*CramDelta(2, 2, -alfa)*exp(-sigma(2)*(z(i)+2d0*h) + ci*alfa*x(i))*sigma(2)
+                s(i) = 1d0/(delta(alfa)*CramDelta(0, 0, alfa))*CramDelta(2, 2, alfa)*exp(-sigma(2)*(z(i)+2d0*h) - ci*alfa*x(i))*sigma(2) + 1d0/(delta(-alfa)*CramDelta(0, 0, -alfa))*CramDelta(2, 2, -alfa)*exp(-sigma(2)*(z(i)+2d0*h) + ci*alfa*x(i))*sigma(2)
             enddo 
 
         END SUBROUTINE UminusSInt1! проверил 7.09.2022, совпадает с выкладками
@@ -152,7 +151,7 @@ SUBROUTINE uMinusS
             do jj = 1, dotsNumber
                 currentPsi = psih(jj) 
                 currentR = Rh(jj)
-                call Halfc(uMinusSSp2ThetaDer, -100d0, 100d0, 2d-2, 1d-8, 10, stPoints, stPointsNumber)
+                call Halfc(uMinusSSp2ThetaDer, -100d0, 100d0, 2d-3, 1d-8, 10, stPoints, stPointsNumber)
                 field_sp2(jj) = 0d0
                 do p = 1, stPointsNumber
                     alfa0 =   stPoints(p)

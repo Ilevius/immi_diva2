@@ -54,13 +54,15 @@ SUBROUTINE uMinusP
         enddo 
         
         call bipolarTest
-        call dinn5(UminusPInt,t1,t2,t3,t4,tm,tp,eps,step,IntLimit,dotsNumber,field_int)
+        call dinn5(WminusPInt1,t1,t2,t3,t4,tm,tp,eps,step,IntLimit,dotsNumber,field_int)
         field_int = field_int/(2d0*pi);
         
-        call uMinusPSp1
-        call uMinusPSp2
+        !call uMinusPSp1 !u_pp
+        call wMinusPSp1 !w_pp
+        !call uMinusPSp2 !u_sp
+        !call wMinusPSp2 !w_sp
         
-        field_sp = field_sp1 + field_sp2
+        field_sp = field_sp1 !+ field_sp2
          
         do i = 1, dotsNumber
             write(1,*) x(i),  z(i), psi
@@ -100,6 +102,8 @@ SUBROUTINE uMinusP
         
     CONTAINS
         
+    !                                                   È Í Ò Å Ã Ð À Ë Û
+    
         SUBROUTINE UminusPInt(alfa, s, n)
         implicit none;
         integer n
@@ -111,7 +115,7 @@ SUBROUTINE uMinusP
             enddo 
         END SUBROUTINE UminusPInt
         
-        
+        !                                                       u_PP
         SUBROUTINE UminusPInt1(alfa, s, n)
         implicit none;
         integer n
@@ -123,7 +127,7 @@ SUBROUTINE uMinusP
             enddo 
         END SUBROUTINE UminusPInt1
         
-        
+        !                                                   u_SP
         SUBROUTINE UminusPInt2(alfa, s, n)
         implicit none;
         integer n
@@ -134,7 +138,7 @@ SUBROUTINE uMinusP
             enddo 
         END SUBROUTINE UminusPInt2
         
-        
+        !                                                   À Ñ È Ì Ï Ò Î Ò È Ê È
         
         SUBROUTINE uMinusPSp1
         IMPLICIT NONE;
@@ -167,6 +171,70 @@ SUBROUTINE uMinusP
                 enddo
             enddo      
         END SUBROUTINE uMinusPSp2
+        
+        
+            !                                                   È Í Ò Å Ã Ð À Ë Û 
+    
+
+        
+        !                                                       u_PP
+        SUBROUTINE WminusPInt1(alfa, s, n)
+        implicit none;
+        integer n
+        complex*16 alfa, s(n), sigma(2)
+            do i = 1, dotsNumber
+                sigma = MakeSigma(alfa)
+                s(i) = 1d0/(delta(alfa)*CramDelta(0, 0, alfa))*CramDelta(1, 1, alfa)*exp(-sigma(1)*h)*exp(-sigma(1)*(z(i)+h) - ci*alfa*x(i))*(-sigma(1))
+                s(i) = s(i) + 1d0/(delta(-alfa)*CramDelta(0, 0, -alfa))*CramDelta(1, 1, -alfa)*exp(-sigma(1)*h)*exp(-sigma(1)*(z(i)+h) + ci*alfa*x(i))*(-sigma(1))
+            enddo 
+        END SUBROUTINE WminusPInt1
+        
+        !                                                   u_SP
+        SUBROUTINE WminusPInt2(alfa, s, n)
+        implicit none;
+        integer n
+        complex*16 alfa, s(n), sigma(2)
+            do i = 1, dotsNumber
+                sigma = MakeSigma(alfa)
+                s(i) = 1d0/(delta(alfa)*CramDelta(0, 0, alfa))*CramDelta(1, 2, alfa)*exp(-sigma(2)*h)*exp(-sigma(1)*(z(i)+h) - ci*alfa*x(i))*(-sigma(1)) + 1d0/(delta(-alfa)*CramDelta(0, 0, -alfa))*CramDelta(1, 2, -alfa)*exp(-sigma(2)*h)*exp(-sigma(1)*(z(i)+h) + ci*alfa*x(i))*(-sigma(1))
+            enddo 
+        END SUBROUTINE WminusPInt2
+        
+        !                                                   À Ñ È Ì Ï Ò Î Ò È Ê È
+        
+        SUBROUTINE wMinusPSp1
+        IMPLICIT NONE;
+        integer jj
+        complex*16 alfa0, sigma(2)         
+            do jj = 1, dotsNumber
+                alfa0 = cmplx(-Kappa(1)*cos(psi2h(jj)))
+                sigma = MakeSigma(alfa0)
+                field_sp1(jj) = sqrt(Kappa(1)*sin(psi2h(jj))**2/(2d0*pi*R2h(jj)))*1d0/(delta(alfa0)*CramDelta(0, 0, alfa0))*CramDelta(1, 1, alfa0)*exp((ci*R2h(jj)*Kappa(1)-ci*pi/4d0))*(-sigma(1))
+            enddo       
+        END SUBROUTINE wMinusPSp1
+        
+                
+        SUBROUTINE wMinusPSp2
+        IMPLICIT NONE;
+        integer jj, p, stPointsNumber 
+        real*8 stPoints(10), alfa0, theta, thetaDerDerSign, thetaDerDer
+        complex*16 alfa0c, sigma(2)
+            do jj = 1, dotsNumber
+                currentPsi = psih(jj) 
+                currentR = Rh(jj)
+                call Halfc(uMinusPSp2ThetaDer, -100d0, 100d0, 2d-2, 1d-8, 10, stPoints, stPointsNumber)
+                field_sp2(jj) = 0d0
+                do p = 1, stPointsNumber
+                    alfa0 =   stPoints(p)
+                    alfa0c = cmplx(alfa0)
+                    sigma = MakeSigma(alfa0c)
+                    theta = uMinusPSp2Theta(alfa0)
+                    thetaDerDer = uMinusPSp2ThetaDerDer(alfa0)
+                    thetaDerDerSign = abs(uMinusPSp2ThetaDerDer(alfa0))/uMinusPSp2ThetaDerDer(alfa0)
+                    field_sp2(jj) =  sqrt(1d0/(2d0*pi*currentR))*sqrt(1d0/abs(thetaDerDer))*1d0/(delta(alfa0c)*CramDelta(0, 0, alfa0c ))*CramDelta(1, 2, alfa0c )*exp( ci*currentR*theta + ci*pi/4d0*thetaDerDerSign )*(-sigma(1))
+                enddo
+            enddo      
+        END SUBROUTINE wMinusPSp2
         
         
         FUNCTION uMinusPSp2Theta(alfa)

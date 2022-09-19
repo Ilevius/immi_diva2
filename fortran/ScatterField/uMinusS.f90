@@ -46,7 +46,7 @@ SUBROUTINE uMinusS
         do i = 1, dotsNumber
             R(i) = Rmin + (i-1)*Rstep;
             x(i) = R(i)*cosd(psi)
-            z(i) = R(i)*sind(psi) -h
+            z(i) = R(i)*sind(psi) -2d0*h
               
             R2h(i) = sqrt(x(i)**2+(z(i)+2d0*h)**2)
             psi2h(i) = atan2(z(i)+2d0*h,x(i))
@@ -55,13 +55,15 @@ SUBROUTINE uMinusS
         enddo 
         
         call bipolarTest
-        call dinn5(UminusSInt2,t1,t2,t3,t4,tm,tp,eps,step,IntLimit,dotsNumber,field_int)
-        field_int = -field_int/(2d0*pi);
+        call dinn5(WminusSInt2,t1,t2,t3,t4,tm,tp,eps,step,IntLimit,dotsNumber,field_int)
+        field_int = field_int/(2d0*pi);
         
 
         
-        !call uMinusSSp1
-        call uMinusSSp2
+        !call uMinusSSp1 !u_ss
+        !call wMinusSSp1 !w_ss
+        !call uMinusSSp2 !u_ps
+        call WMinusSSp2 !w_ps
         
         
         
@@ -84,19 +86,10 @@ SUBROUTINE uMinusS
     
         
     CONTAINS
+        !`                      ИНТЕГРАЛЫ
+
         
-        SUBROUTINE UminusPInt(alfa, s, n)
-        implicit none;
-        integer n
-        complex*16 alfa, s(n), sigma(2)
-            do i = 1, dotsNumber
-                sigma = MakeSigma(alfa)
-                s(i) = 1d0/(delta(alfa)*CramDelta(0, 0, alfa))*(CramDelta(1, 1, alfa)*exp(-sigma(1)*h) + CramDelta(1, 2, alfa)*exp(-sigma(2)*h))*exp(-sigma(1)*(z(i)+h) - ci*alfa*x(i))
-                s(i) = s(i) + 1d0/(delta(-alfa)*CramDelta(0, 0, -alfa))*(CramDelta(1, 1, -alfa)*exp(-sigma(1)*h) + CramDelta(1, 2, -alfa)*exp(-sigma(2)*h))*exp(-sigma(1)*(z(i)+h) + ci*alfa*x(i))
-            enddo 
-        END SUBROUTINE UminusPInt
-        
-        
+        !                                       u_SS
         SUBROUTINE UminusSInt1(alfa, s, n)
         implicit none;
         integer n
@@ -104,25 +97,103 @@ SUBROUTINE uMinusS
         
             do i = 1, dotsNumber
                 sigma = MakeSigma(alfa)
-                s(i) = 1d0/(delta(alfa)*CramDelta(0, 0, alfa))*CramDelta(2, 2, alfa)*exp(-sigma(2)*(z(i)+2d0*h) - ci*alfa*x(i))*sigma(2) + 1d0/(delta(-alfa)*CramDelta(0, 0, -alfa))*CramDelta(2, 2, -alfa)*exp(-sigma(2)*(z(i)+2d0*h) + ci*alfa*x(i))*sigma(2)
+                s(i) = -1d0/(delta(alfa)*CramDelta(0, 0, alfa))*CramDelta(2, 2, alfa)*exp(-sigma(2)*(z(i)+2d0*h) - ci*alfa*x(i))*sigma(2) - 1d0/(delta(-alfa)*CramDelta(0, 0, -alfa))*CramDelta(2, 2, -alfa)*exp(-sigma(2)*(z(i)+2d0*h) + ci*alfa*x(i))*sigma(2)
             enddo 
 
         END SUBROUTINE UminusSInt1! проверил 7.09.2022, совпадает с выкладками
         
-        
+        !                                       u_PS
         SUBROUTINE UminusSInt2(alfa, s, n)
         implicit none;
         integer n
         complex*16 alfa, s(n), sigma(2)
             do i = 1, dotsNumber
                 sigma = MakeSigma(alfa)
-                s(i) = 1d0/(delta(alfa)*CramDelta(0, 0, alfa))*CramDelta(2, 1, alfa)*exp(-sigma(1)*h)*exp(-sigma(2)*(z(i)+h) - ci*alfa*x(i))*sigma(2) + 1d0/(delta(-alfa)*CramDelta(0, 0, -alfa))*CramDelta(2, 1, -alfa)*exp(-sigma(1)*h)*exp(-sigma(2)*(z(i)+h) + ci*alfa*x(i))*sigma(2)
+                s(i) = -1d0/(delta(alfa)*CramDelta(0, 0, alfa))*CramDelta(2, 1, alfa)*exp(-sigma(1)*h)*exp(-sigma(2)*(z(i)+h) - ci*alfa*x(i))*sigma(2) - 1d0/(delta(-alfa)*CramDelta(0, 0, -alfa))*CramDelta(2, 1, -alfa)*exp(-sigma(1)*h)*exp(-sigma(2)*(z(i)+h) + ci*alfa*x(i))*sigma(2)
             enddo 
         END SUBROUTINE UminusSInt2
         
         
+                !                                       w_SS
+        SUBROUTINE WminusSInt1(alfa, s, n)
+        implicit none;
+        integer n
+        complex*16 alfa, s(n), sigma(2)
         
+            do i = 1, dotsNumber
+                sigma = MakeSigma(alfa)
+                s(i) = 1d0/(delta(alfa)*CramDelta(0, 0, alfa))*CramDelta(2, 2, alfa)*exp(-sigma(2)*(z(i)+2d0*h) - ci*alfa*x(i))*alfa**2 + 1d0/(delta(-alfa)*CramDelta(0, 0, -alfa))*CramDelta(2, 2, -alfa)*exp(-sigma(2)*(z(i)+2d0*h) + ci*alfa*x(i))*alfa**2
+            enddo 
+
+        END SUBROUTINE WminusSInt1! проверил 7.09.2022, совпадает с выкладками
+        
+        !                                       w_PS
+        SUBROUTINE WminusSInt2(alfa, s, n)
+        implicit none;
+        integer n
+        complex*16 alfa, s(n), sigma(2)
+            do i = 1, dotsNumber
+                sigma = MakeSigma(alfa)
+                s(i) = 1d0/(delta(alfa)*CramDelta(0, 0, alfa))*CramDelta(2, 1, alfa)*exp(-sigma(1)*h)*exp(-sigma(2)*(z(i)+h) - ci*alfa*x(i))*alfa**2 + 1d0/(delta(-alfa)*CramDelta(0, 0, -alfa))*CramDelta(2, 1, -alfa)*exp(-sigma(1)*h)*exp(-sigma(2)*(z(i)+h) + ci*alfa*x(i))*alfa**2
+            enddo 
+        END SUBROUTINE WminusSInt2
+        
+        
+        !                                           А С И М П Т О Т И К И
+        
+        !                                       u_SS
         SUBROUTINE uMinusSSp1
+        IMPLICIT NONE;
+        integer jj
+        complex*16 alfa0, sigma(2)   
+            open(100, file='C:\Users\tiama\OneDrive\Рабочий стол\IMMI\DIVA2\data\alfa0.txt', FORM='FORMATTED')
+            open(101, file='C:\Users\tiama\OneDrive\Рабочий стол\IMMI\DIVA2\data\kappa2.txt', FORM='FORMATTED')
+            do jj = 1, dotsNumber
+                alfa0 = cmplx(-Kappa(2)*cos(psi2h(jj)))
+                write(100,*) R(jj), real(alfa0),  Kappa(1)
+                write(101,*) psi,  Kappa(2)
+                write(200,*) R(jj), real(alfa0),  Kappa(1)
+                write(201,*) psi,  Kappa(2)
+                sigma = MakeSigma(alfa0)
+                field_sp1(jj) = sqrt(Kappa(2)*sin(psi2h(jj))**2/(2d0*pi*R2h(jj)))*1d0/(delta(alfa0)*CramDelta(0, 0, alfa0))*CramDelta(2, 2, alfa0)*alfa0**2*exp((ci*R2h(jj)*Kappa(2)-ci*pi/4d0))
+            enddo  
+            close(100);  close(101);   
+        END SUBROUTINE uMinusSSp1! проверил 7.09.2022, совпадает с выкладками
+        
+        !                                       u_PS        
+        SUBROUTINE uMinusSSp2
+        IMPLICIT NONE;
+        integer jj, p, stPointsNumber 
+        real*8 stPoints(10), alfa0, theta, thetaDerDerSign, thetaDerDer
+        complex*16 alfa0c, sigma(2)
+            open(100, file='C:\Users\tiama\OneDrive\Рабочий стол\IMMI\DIVA2\data\alfa0.txt', FORM='FORMATTED')
+            open(101, file='C:\Users\tiama\OneDrive\Рабочий стол\IMMI\DIVA2\data\kappa2.txt', FORM='FORMATTED')
+            do jj = 1, dotsNumber
+                currentPsi = psih(jj) 
+                currentR = Rh(jj)
+                call Halfc(uMinusSSp2ThetaDer, -100d0, 100d0, 2d-3, 1d-8, 10, stPoints, stPointsNumber)
+                field_sp2(jj) = 0d0
+                do p = 1, stPointsNumber
+                    alfa0 =   stPoints(p)
+                    alfa0c = cmplx(alfa0)
+                    write(100,*) R(jj), real(alfa0),  Kappa(1)
+                    write(101,*) psi,  Kappa(2)
+                    write(200,*) R(jj), real(alfa0),  Kappa(1)
+                    write(201,*) psi,  Kappa(2)
+                    sigma = MakeSigma(alfa0c)
+                    theta = uMinusSSp2Theta(alfa0)
+                    thetaDerDer = uMinusSSp2ThetaDerDer(alfa0)
+                    thetaDerDerSign = abs(uMinusSSp2ThetaDerDer(alfa0))/uMinusSSp2ThetaDerDer(alfa0)
+                    field_sp2(jj) =  sqrt(1d0/(2d0*pi*currentR))*sqrt(1d0/abs(thetaDerDer))*1d0/(delta(alfa0c)*CramDelta(0, 0, alfa0c ))*CramDelta(2, 1, alfa0c )*alfa0c**2*exp( ci*currentR*theta + ci*pi/4d0*thetaDerDerSign )
+                enddo
+            enddo 
+            close(100);  close(101);
+        END SUBROUTINE uMinusSSp2
+        
+        
+        
+                !                                       w_SS
+        SUBROUTINE wMinusSSp1
         IMPLICIT NONE;
         integer jj
         complex*16 alfa0, sigma(2)   
@@ -138,10 +209,10 @@ SUBROUTINE uMinusS
                 field_sp1(jj) = -sqrt(Kappa(2)*sin(psi2h(jj))**2/(2d0*pi*R2h(jj)))*1d0/(delta(alfa0)*CramDelta(0, 0, alfa0))*CramDelta(2, 2, alfa0)*sigma(2)*exp((ci*R2h(jj)*Kappa(2)-ci*pi/4d0))
             enddo  
             close(100);  close(101);   
-        END SUBROUTINE uMinusSSp1! проверил 7.09.2022, совпадает с выкладками
+        END SUBROUTINE wMinusSSp1! проверил 7.09.2022, совпадает с выкладками
         
-                
-        SUBROUTINE uMinusSSp2
+        !                                       w_PS        
+        SUBROUTINE wMinusSSp2
         IMPLICIT NONE;
         integer jj, p, stPointsNumber 
         real*8 stPoints(10), alfa0, theta, thetaDerDerSign, thetaDerDer
@@ -168,7 +239,20 @@ SUBROUTINE uMinusS
                 enddo
             enddo 
             close(100);  close(101);
-        END SUBROUTINE uMinusSSp2
+        END SUBROUTINE wMinusSSp2
+        
+        
+        
+                SUBROUTINE UminusPInt(alfa, s, n)
+        implicit none;
+        integer n
+        complex*16 alfa, s(n), sigma(2)
+            do i = 1, dotsNumber
+                sigma = MakeSigma(alfa)
+                s(i) = 1d0/(delta(alfa)*CramDelta(0, 0, alfa))*(CramDelta(1, 1, alfa)*exp(-sigma(1)*h) + CramDelta(1, 2, alfa)*exp(-sigma(2)*h))*exp(-sigma(1)*(z(i)+h) - ci*alfa*x(i))
+                s(i) = s(i) + 1d0/(delta(-alfa)*CramDelta(0, 0, -alfa))*(CramDelta(1, 1, -alfa)*exp(-sigma(1)*h) + CramDelta(1, 2, -alfa)*exp(-sigma(2)*h))*exp(-sigma(1)*(z(i)+h) + ci*alfa*x(i))
+            enddo 
+        END SUBROUTINE UminusPInt
         
         
         FUNCTION uMinusSSp2Theta(alfa)

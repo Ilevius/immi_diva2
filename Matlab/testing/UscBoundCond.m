@@ -6,7 +6,9 @@ left_part = v(:, 2);
 right_part = v(:,3);
 
 plot(alfas, left_part, alfas, right_part, 'x', 'LineWidth', 3, 'MarkerSize', 10);
-legend('Im(U_0(\alpha, -h) + U_-(\alpha, -h))', 'Im(U_+(\alpha, -h))');
+
+leg1 = legend('$|U_0(\alpha, -h) + U_-^1(\alpha, -h)|$', '$|U_+^1(\alpha, -h)|$');
+set(leg1, 'Interpreter', 'Latex');
 
 set(gca, 'FontSize',36);
 xlabel('\alpha, z=-h', 'FontSize',36);

@@ -20,7 +20,12 @@ graph2 = v(:, 2);
 plot(dots, graph1, dots, graph2, 'x', 'LineWidth', 3, 'MarkerSize', 10);
 xlabel(psi, 'FontSize',36);
 %ylabel('$|u|$, m', 'FontSize',36, 'Interpreter', 'Latex');
-legend(' |u_{-}^{P}| integral', '|A(\psi,R)| asymptotics');
+%legend(' |u_{-}^{P}| integral', '|A(\psi,R)| asymptotics');
+
+
+leg1 = legend('$|w_{PP}|$ integral', '$|w_{PP}|$ asymptotics');
+set(leg1, 'Interpreter', 'Latex');
+
 
 set(gca, 'FontSize',36);
 grid on;

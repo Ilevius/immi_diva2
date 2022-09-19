@@ -6,8 +6,8 @@ SUBROUTINE UfurTest
     complex*16 alfa_min, alfa_step, alfa
     
     alfa_min = cmplx(-2d0)
-    alfa_step = cmplx(2d-2)
-    alfa_number = 200
+    alfa_step = cmplx(4d-2)
+    alfa_number = 100
     
     
     print*, 'U0 + U- = U+ at z = -h equation test has been started'
@@ -15,8 +15,8 @@ SUBROUTINE UfurTest
     open(2, file='C:\Users\tiama\OneDrive\Рабочий стол\IMMI\DIVA2\data\VscTest.txt', FORM='FORMATTED')
     do i = 1, alfa_number
         alfa = alfa_min + alfa_step*i   
-        write(1,*) real(alfa),  imag(U0(alfa,-h) + Uminus(alfa,-h)), imag(Uplus(alfa,-h))
-        write(2,*) real(alfa),  imag(V0(alfa,-h) + Vminus(alfa,-h)), imag(Vplus(alfa,-h))
+        write(1,*) real(alfa),  abs(U0(alfa,-h) + Uminus(alfa,-h)), abs(Uplus(alfa,-h))
+        write(2,*) real(alfa),  abs(V0(alfa,-h) + Vminus(alfa,-h)), abs(Vplus(alfa,-h))
     enddo    
     close(1)  
     close(2)
@@ -27,8 +27,8 @@ SUBROUTINE UfurTest
     open(2, file='C:\Users\tiama\OneDrive\Рабочий стол\IMMI\DIVA2\data\U0TestGr2.txt', FORM='FORMATTED')
     do i = 1, alfa_number
         alfa = alfa_min + alfa_step*i   
-        write(1,*) real(alfa),  imag(  mu(1)*derU0(alfa, 0d0)  ), imag( mu(1)*ci*alfa*V0(alfa, 0d0) )
-        write(2,*) real(alfa),  real(  lamda(1)*(-ci*alfa*U0(alfa, 0d0)) + (lamda(1)+2d0*mu(1))*derV0(alfa, 0d0)  ), 1d0 
+        write(1,*) real(alfa),  abs(  derU0(alfa, 0d0)  ), abs( ci*alfa*V0(alfa, 0d0) )
+        write(2,*) real(alfa),  abs(  lamda(1)*(-ci*alfa*U0(alfa, 0d0)) + (lamda(1)+2d0*mu(1))*derV0(alfa, 0d0)  ), 1d0 
     enddo    
     close(1)  
     close(2)
@@ -38,8 +38,8 @@ SUBROUTINE UfurTest
     open(2, file='C:\Users\tiama\OneDrive\Рабочий стол\IMMI\DIVA2\data\TTestGr2.txt', FORM='FORMATTED')
     do i = 1, alfa_number
         alfa = alfa_min + alfa_step*i   
-        write(1,*) real(alfa),  real(  mu(1)*( derU0(alfa, -h) + derUminus(alfa, -h) - ci*alfa*(V0(alfa, -h) + Vminus(alfa, -h)) )  ), real( mu(2)*( derUplus(alfa, -h) - ci*alfa*Vplus(alfa, -h) ) )
-        write(2,*) real(alfa),  real(  -ci*alfa*lamda(1)*(U0(alfa, -h) + Uminus(alfa, -h)) + (lamda(1)+2d0*mu(1))*(derV0(alfa, -h)+derVminus(alfa, -h))  ),  real(  -ci*alfa*lamda(2)*(Uplus(alfa, -h)) + (lamda(2)+2d0*mu(2))*(derVplus(alfa, -h))  ) 
+        write(1,*) real(alfa),  abs(  mu(1)*( derU0(alfa, -h) + derUminus(alfa, -h) - ci*alfa*(V0(alfa, -h) + Vminus(alfa, -h)) )  ), abs( mu(2)*( derUplus(alfa, -h) - ci*alfa*Vplus(alfa, -h) ) )
+        write(2,*) real(alfa),  abs(  -ci*alfa*lamda(1)*(U0(alfa, -h) + Uminus(alfa, -h)) + (lamda(1)+2d0*mu(1))*(derV0(alfa, -h)+derVminus(alfa, -h))  ),  abs(  -ci*alfa*lamda(2)*(Uplus(alfa, -h)) + (lamda(2)+2d0*mu(2))*(derVplus(alfa, -h))  ) 
     enddo    
     close(1)  
     close(2)

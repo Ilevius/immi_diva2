@@ -6,7 +6,8 @@ left_part = v(:, 2);
 right_part = v(:,3);
 
 plot(alfas, left_part, alfas, right_part, 'x', 'LineWidth', 3, 'MarkerSize', 10);
-legend('Im(\mu_1 U_0^{\prime})', 'Im(\mu_1 i\alpha W_0)');
+leg1 = legend('$| U_0^{\prime}|$', '$|i\alpha W_0|$');
+set(leg1, 'Interpreter', 'Latex');
 
 set(gca, 'FontSize',36);
 xlabel('\alpha, z=0', 'FontSize',36);

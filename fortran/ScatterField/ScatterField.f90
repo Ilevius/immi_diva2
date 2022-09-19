@@ -5,7 +5,7 @@
     
         call InitGlobals
         call UfurTest
-        call uMinusS
+        call uMinusP
 
     END PROGRAM ScatterField
 

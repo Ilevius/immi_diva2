@@ -1,4 +1,4 @@
-        !COMPILER-GENERATED INTERFACE MODULE: Tue Sep 06 23:20:12 2022
+        !COMPILER-GENERATED INTERFACE MODULE: Tue Sep 20 17:31:35 2022
         ! This source file is for reference only and may not completely
         ! represent the generated interface used by the compiler.
         MODULE UFURTEST__genmod

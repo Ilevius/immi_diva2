@@ -1,4 +1,4 @@
-        !COMPILER-GENERATED INTERFACE MODULE: Sat Sep 10 17:44:55 2022
+        !COMPILER-GENERATED INTERFACE MODULE: Thu Sep 29 11:40:50 2022
         ! This source file is for reference only and may not completely
         ! represent the generated interface used by the compiler.
         MODULE UMINUSS__genmod

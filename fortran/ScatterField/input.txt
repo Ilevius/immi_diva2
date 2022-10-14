@@ -1,22 +1,23 @@
 &media
-cp(1) = 6198d0,
-cp(2) = 4098d0,
-cs(1) = 3122d0,
-cs(2) = 2022d0,
-rho(1) = 2.7d0,
-rho(2) = 4.7d0,
+cp(1) = 2.03d0,
+cs(1) = 1d0,
+cp(2) = 3.03d0,
+cs(2) = 1.54d0,
+rho(1) = 1d0,
+rho(2) = 0.5d0,
 theta = 90d0,
-a = 2d0,
-f = 2000d0,
-h = 5d0
+a = 0d0,
+f = 5d0,
+h = 1d0
+omega=10d0
 /
 &rayInput
-psi = 69d0,
-psiNumber = 1,
-psiStep = 1d0,
-Rmin = 10d0,
+psi = 4d0,
+psiNumber = 85,
+psiStep = 2d0,
+Rmin = 14d0,
 Rstep = 0.2d0,
-Rmax = 70d0,
+Rmax = 14d0,
 t1 = 0d0, 
 t2 = 0d0, 
 t3 = 0d0, 

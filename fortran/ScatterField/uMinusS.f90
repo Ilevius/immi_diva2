@@ -56,7 +56,7 @@ SUBROUTINE uMinusS
         
         call bipolarTest
         
-        call OBTAIN('wsp')           
+        call OBTAIN('wpp')           
          
         do i = 1, dotsNumber
             write(1,*) x(i),  z(i), psi
@@ -80,54 +80,64 @@ SUBROUTINE uMinusS
         implicit none;
         character(len = 3) :: target_field
         open(777, file='C:\Users\tiama\OneDrive\Рабочий стол\IMMI\DIVA2\data\fieldname.txt', FORM='FORMATTED')
+        open(7777, file='C:\Users\tiama\OneDrive\Рабочий стол\IMMI\DIVA2\data\waveLength.txt', FORM='FORMATTED')
         
             IF (target_field == 'upp') THEN
                 call dinn5(UppInt,t1,t2,t3,t4,tm,tp,eps,step,IntLimit,dotsNumber,field_int)
                 field_int = field_int/(2d0*pi)
                 call upp
                 write(777,*) 'u_{PP}'
+                write(7777,*) cp(1)/(f)
+
 
             ELSE IF (target_field == 'wpp') THEN
                 call dinn5(WppInt,t1,t2,t3,t4,tm,tp,eps,step,IntLimit,dotsNumber,field_int)
                 field_int = field_int/(2d0*pi)
                 call wpp !w_pp
                 write(777,*) 'w_{PP}'
+                 write(7777,*) cp(1)/(f)
                 
             ELSE IF (target_field == 'ups') THEN
                 call dinn5(UpsInt,t1,t2,t3,t4,tm,tp,eps,step,IntLimit,dotsNumber,field_int)
                 field_int = field_int/(2d0*pi)
                 call ups !u_ps
                 write(777,*) 'u_{PS}'
+                 write(7777,*) cp(2)/(f)
                 
             ELSE IF (target_field == 'wps') THEN
                 call dinn5(WpsInt,t1,t2,t3,t4,tm,tp,eps,step,IntLimit,dotsNumber,field_int)
                 field_int = field_int/(2d0*pi)
                 call wps !w_ps
                 write(777,*) 'w_{PS}'
+                 write(7777,*) cp(2)/(f)
                 
             ELSE IF (target_field == 'usp') THEN
                 call dinn5(UspInt,t1,t2,t3,t4,tm,tp,eps,step,IntLimit,dotsNumber,field_int)
                 field_int = field_int/(2d0*pi)
                 call usp !u_sp
                 write(777,*) 'u_{SP}'
+                 write(7777,*) cp(1)/(f)
                 
             ELSE IF (target_field == 'wsp') THEN
                 call dinn5(WspInt,t1,t2,t3,t4,tm,tp,eps,step,IntLimit,dotsNumber,field_int)
                 field_int = field_int/(2d0*pi)
                 call wsp !w_sp
                 write(777,*) 'w_{SP}'
+                 write(7777,*) cp(1)/(f)
                 
             ELSE IF (target_field == 'uss') THEN
                 call dinn5(UssInt,t1,t2,t3,t4,tm,tp,eps,step,IntLimit,dotsNumber,field_int)
                 field_int = field_int/(2d0*pi)
                 call uss !u_ss
                 write(777,*) 'u_{SS}'
+                 write(7777,*) cp(2)/(f)
                 
             ELSE IF (target_field == 'wss') THEN
                 call dinn5(WssInt,t1,t2,t3,t4,tm,tp,eps,step,IntLimit,dotsNumber,field_int)
                 field_int = field_int/(2d0*pi)
                 call wss !w_ss
                 write(777,*) 'w_{SS}'
+                 write(7777,*) cp(2)/(f)
                 
             ELSE
                 WRITE(*,*)  'wrong argument!'

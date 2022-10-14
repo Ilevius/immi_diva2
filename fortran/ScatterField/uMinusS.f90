@@ -39,20 +39,25 @@ SUBROUTINE uMinusS
     open(200, file='C:\Users\tiama\OneDrive\Рабочий стол\IMMI\DIVA2\data\alfa0psi.txt', FORM='FORMATTED')
     open(201, file='C:\Users\tiama\OneDrive\Рабочий стол\IMMI\DIVA2\data\kappa2psi.txt', FORM='FORMATTED')
     
-    t1 = Kappa(1)*0.1; t2 = t1; t3 = t1; t4 = (Kappa(2)*1.4d0+1d0);   
-        
+    
+    t1 = min(Kappa(1), Kappa_(1))*0.001; t2 = t1; t3 = t1; t4 = max(Kappa(2), Kappa_(2))+2d0;   
+    psiStep=(pi-0.2d0)/(psiNumber-1)
     do j = 1, psiNumber
-        psi = psi + psiStep
-        do i = 1, dotsNumber
-            R(i) = Rmin + (i-1)*Rstep;
-            x(i) = R(i)*cosd(psi)
-            z(i) = R(i)*sind(psi) -2d0*h
-              
-            R2h(i) = sqrt(x(i)**2+(z(i)+2d0*h)**2)
-            psi2h(i) = atan2(z(i)+2d0*h,x(i))
-            Rh(i) = sqrt(x(i)**2+(z(i)+h)**2)
-            psih(i) = atan2(z(i)+h,x(i))
-        enddo 
+        psi = psi + (j-1)*psiStep
+        R_sngl = 14d0
+        z_sngl = R_sngl*sin(psi) - 2d0*h
+        x_sngl = R_sngl*cos(psi)
+        
+        !do i = 1, dotsNumber
+        !    R(i) = Rmin + (i-1)*Rstep;
+        !    x(i) = R(i)*cos(psi)
+        !    z(i) = R(i)*sin(psi) -2d0*h !!! sind
+        !      
+        !    R2h(i) = sqrt(x(i)**2+(z(i)+2d0*h)**2)
+        !    psi2h(i) = atan2(z(i)+2d0*h,x(i))
+        !    Rh(i) = sqrt(x(i)**2+(z(i)+h)**2)
+        !    psih(i) = atan2(z(i)+h,x(i))
+        !enddo 
         
         call bipolarTest
         
@@ -171,8 +176,8 @@ SUBROUTINE uMinusS
         complex*16 alfa, s(n), sigma(2)
             do i = 1, dotsNumber
                 sigma = MakeSigma(alfa)
-                s(i) = 1d0/(delta(alfa)*CramDelta(0, 0, alfa))*CramDelta(1, 1, alfa)*exp(-sigma(1)*h)*exp(-sigma(1)*(z(i)+h) - ci*alfa*x(i))*(-sigma(1))
-                s(i) = s(i) + 1d0/(delta(-alfa)*CramDelta(0, 0, -alfa))*CramDelta(1, 1, -alfa)*exp(-sigma(1)*h)*exp(-sigma(1)*(z(i)+h) + ci*alfa*x(i))*(-sigma(1))
+                s(i) = 1d0/(delta(alfa)*CramDelta(0, 0, alfa))*CramDelta(1, 1, alfa)*exp(-sigma(1)*h)*exp(-sigma(1)*(z_sngl+h))*(-sigma(1)) !* exp(-ci*alfa*x_sngl))
+                s(i) =  1d0/(delta(-alfa)*CramDelta(0, 0, -alfa))*CramDelta(1, 1, -alfa)*exp(-sigma(1)*h)*exp(-sigma(1)*(z_sngl+h))*(-sigma(1)) !*exp(i*alfa*x_sngl)
             enddo 
         END SUBROUTINE WppInt
         

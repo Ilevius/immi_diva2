@@ -12,8 +12,8 @@ h = 1d0
 omega=10d0
 /
 &rayInput
-psi = 4d0,
-psiNumber = 85,
+psi = 0.1d0,
+psiNumber = 300,
 psiStep = 2d0,
 Rmin = 14d0,
 Rstep = 0.2d0,

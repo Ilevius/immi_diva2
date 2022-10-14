@@ -232,6 +232,7 @@ MODULE MakeK
             IMPLICIT NONE;
             integer i
             complex*16 alfa, partB(4,1), Sigma(2), Sigma_(2)
+            alfa=0d0
                 sigma = MakeSigma(alfa); sigma_ =  MakeSigma_(alfa);     
                 if (i == 1) then     
                     partB(1,1) = ci*alfa*(alfa**2 - 0.5d0*kappa(2)**2)

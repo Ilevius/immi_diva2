@@ -1,6 +1,6 @@
 MODULE Globals
     IMPLICIT NONE;
-    real*8 a, h, f, theta, cp(2), cs(2), rho(2), lamda(2), mu(2), pi, k
+    real*8 a, h, f, theta, cp(2), cs(2), rho(2), lamda(2), mu(2), pi, k, z_sngl, x_sngl, R_sngl
     real*8 Kappa(2), Kappa_(2),omega
     complex*16 ci
     parameter (pi=3.141592653589793d0)

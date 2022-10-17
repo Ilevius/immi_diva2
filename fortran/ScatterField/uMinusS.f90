@@ -2,9 +2,9 @@ SUBROUTINE uMinusS
     use Globals;
     use MakeK
     implicit none;
-    real*8 psi, psiStep, Rmin, Rstep, Rmax
+    real*8 psiStep, Rmin, Rstep, Rmax
     real*8, allocatable:: psi2h(:), psih(:)
-    real*8 t1, t2, t3, t4, tm, tp, eps, step, IntLimit
+    real*8 t1, t2, t3, t4, tm, tp, eps, step, IntLimit,psi1,psi2
     integer dotsNumber, i, j, psiNumber
     real*8, allocatable:: x(:), x2h(:), xh(:)
     real*8, allocatable:: z(:), z2h(:), zh(:)
@@ -35,15 +35,19 @@ SUBROUTINE uMinusS
     open(5, file='C:\Users\tiama\OneDrive\Рабочий стол\IMMI\DIVA2\data\asymptotics_imag.txt', FORM='FORMATTED') 
     open(6, file='C:\Users\tiama\OneDrive\Рабочий стол\IMMI\DIVA2\data\integral_abs.txt', FORM='FORMATTED')
     open(7, file='C:\Users\tiama\OneDrive\Рабочий стол\IMMI\DIVA2\data\asymptotics_abs.txt', FORM='FORMATTED') 
+    write(6,*) '% R ',  ' psy ', ' abs(integral) '
+    write(7,*) '% R ',  ' psy ', ' abs(asymptotics)'
     
     open(200, file='C:\Users\tiama\OneDrive\Рабочий стол\IMMI\DIVA2\data\alfa0psi.txt', FORM='FORMATTED')
     open(201, file='C:\Users\tiama\OneDrive\Рабочий стол\IMMI\DIVA2\data\kappa2psi.txt', FORM='FORMATTED')
     
     
     t1 = min(Kappa(1), Kappa_(1))*0.001; t2 = t1; t3 = t1; t4 = max(Kappa(2), Kappa_(2))+2d0;   
-    psiStep=(pi-0.2d0)/(psiNumber-1)
+    psi1=0.1d0; psi2=pi-0.1d0
+    psiStep=(psi2-psi1)/(psiNumber-1)
+   
     do j = 1, psiNumber
-        psi = psi + (j-1)*psiStep
+        psi = psi1 + (j-1)*psiStep
         R_sngl = 14d0
         z_sngl = R_sngl*sin(psi) - 2d0*h
         x_sngl = R_sngl*cos(psi)
@@ -61,19 +65,23 @@ SUBROUTINE uMinusS
         
         call bipolarTest
         
-        call OBTAIN('wpp')           
+        call OBTAIN('wpp')
+        
+
+        write(6,*) R_sngl, psi,  abs(field_int(1))
+        write(7,*) R_sngl, psi,  abs(field_sp(1))
          
-        do i = 1, dotsNumber
-            write(1,*) x(i),  z(i), psi
-            
-            write(2,*) R(i),  real(field_int(i)), psi 
-            write(4,*) R(i),  imag(field_int(i)), psi
-            write(6,*) R(i),  abs(field_int(i)), psi
-            
-            write(3,*) R(i),  real(field_sp(i)), Rh(i) 
-            write(5,*) R(i),  imag(field_sp(i)), Rh(i)
-            write(7,*) R(i),  abs(field_sp(i)), Rh(i)
-        enddo
+        !do i = 1, dotsNumber
+        !    write(1,*) x(i),  z(i), psi
+        !    
+        !    write(2,*) R(i),  real(field_int(i)), psi 
+        !    write(4,*) R(i),  imag(field_int(i)), psi
+        !    write(6,*) R(i),  abs(field_int(i)), psi
+        !    
+        !    write(3,*) R(i),  real(field_sp(i)), Rh(i) 
+        !    write(5,*) R(i),  imag(field_sp(i)), Rh(i)
+        !    write(7,*) R(i),  abs(field_sp(i)), Rh(i)
+        !enddo
     enddo         
         
     close(1001); close(1002); close(1); close(2); close(3); close(4); close(5); close(6); close(7); close(200); close(201);
@@ -164,8 +172,10 @@ SUBROUTINE uMinusS
         complex*16 alfa, s(n), sigma(2)
             do i = 1, dotsNumber
                 sigma = MakeSigma(alfa)
-                s(i) = 1d0/(delta(alfa)*CramDelta(0, 0, alfa))*CramDelta(1, 1, alfa)*exp(-sigma(1)*h)*exp(-sigma(1)*(z(i)+h) - ci*alfa*x(i))
-                s(i) = s(i) + 1d0/(delta(-alfa)*CramDelta(0, 0, -alfa))*CramDelta(1, 1, -alfa)*exp(-sigma(1)*h)*exp(-sigma(1)*(z(i)+h) + ci*alfa*x(i))
+                !s(i) = 1d0/(delta(alfa)*CramDelta(0, 0, alfa))*CramDelta(1, 1, alfa)*exp(-sigma(1)*h)*exp(-sigma(1)*(z(i)+h) - ci*alfa*x(i))
+                !s(i) = s(i) + 1d0/(delta(-alfa)*CramDelta(0, 0, -alfa))*CramDelta(1, 1, -alfa)*exp(-sigma(1)*h)*exp(-sigma(1)*(z(i)+h) + ci*alfa*x(i))
+                
+                s(i) = 1d0/(delta(alfa)*CramDelta(0, 0, alfa))*CramDelta(1, 1, alfa)*exp(-sigma(1)*(z_sngl+2d0*h))*(exp(-ci*alfa*x_sngl)+exp(ci*alfa*x_sngl))
             enddo 
         END SUBROUTINE UppInt
         
@@ -176,8 +186,8 @@ SUBROUTINE uMinusS
         complex*16 alfa, s(n), sigma(2)
             do i = 1, dotsNumber
                 sigma = MakeSigma(alfa)
-                s(i) = 1d0/(delta(alfa)*CramDelta(0, 0, alfa))*CramDelta(1, 1, alfa)*exp(-sigma(1)*h)*exp(-sigma(1)*(z_sngl+h))*(-sigma(1)) !* exp(-ci*alfa*x_sngl))
-                s(i) =  1d0/(delta(-alfa)*CramDelta(0, 0, -alfa))*CramDelta(1, 1, -alfa)*exp(-sigma(1)*h)*exp(-sigma(1)*(z_sngl+h))*(-sigma(1)) !*exp(i*alfa*x_sngl)
+                
+                s(i) = 1d0/(delta(alfa)*CramDelta(0, 0, alfa))*CramDelta(1, 1, alfa)*(-sigma(1))*exp(-sigma(1)*(z_sngl+2d0*h))*(exp(-ci*alfa*x_sngl)+exp(ci*alfa*x_sngl))
             enddo 
         END SUBROUTINE WppInt
         
@@ -274,15 +284,16 @@ SUBROUTINE uMinusS
                 field_sp(jj) = sqrt(Kappa(1)*sin(psi2h(jj))**2/(2d0*pi*R2h(jj)))*1d0/(delta(alfa0)*CramDelta(0, 0, alfa0))*CramDelta(1, 1, alfa0)*exp((ci*R2h(jj)*Kappa(1)-ci*pi/4d0))
             enddo       
         END SUBROUTINE upp
-        
+        !                           WPP
         SUBROUTINE wpp
         IMPLICIT NONE;
         integer jj
         complex*16 alfa0, sigma(2)         
             do jj = 1, dotsNumber
-                alfa0 = cmplx(-Kappa(1)*cos(psi2h(jj)))
+                alfa0 = Kappa(1)*abs(cos(psi))
                 sigma = MakeSigma(alfa0)
-                field_sp(jj) = sqrt(Kappa(1)*sin(psi2h(jj))**2/(2d0*pi*R2h(jj)))*1d0/(delta(alfa0)*CramDelta(0, 0, alfa0))*CramDelta(1, 1, alfa0)*exp((ci*R2h(jj)*Kappa(1)-ci*pi/4d0))*(-sigma(1))
+                !field_sp(jj) = CramDelta(0, 0, alfa0)
+                field_sp(jj) = sqrt(Kappa(1)*sin(psi)**2/(2d0*pi*R_sngl))*1d0/(delta(alfa0)*CramDelta(0, 0, alfa0))*CramDelta(1, 1, alfa0)*exp((ci*R_sngl*Kappa(1)-ci*pi/4d0))*(-sigma(1))
             enddo       
         END SUBROUTINE wpp
         
